@@ -1,93 +1,120 @@
-import { Github, MapPin, Code2, Send, Terminal, Brackets, Parentheses, CurlyBraces, ChevronDown } from "lucide-react";
+import { Github, MapPin, ArrowRight } from "lucide-react";
 import avatar from "@/assets/avatar.png";
+import { useLang } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLang();
+  const stats = t.hero.stats;
+
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-hero" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-glow-secondary/10 rounded-full blur-3xl" />
-      
-      {/* Floating programming icons */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <Terminal className="absolute top-[15%] left-[10%] w-12 h-12 text-primary animate-float" style={{ animationDelay: "0s" }} />
-        <Code2 className="absolute top-[25%] right-[15%] w-16 h-16 text-primary animate-float" style={{ animationDelay: "1s" }} />
-        <Brackets className="absolute bottom-[20%] left-[15%] w-14 h-14 text-primary animate-float" style={{ animationDelay: "2s" }} />
-        <CurlyBraces className="absolute bottom-[30%] right-[10%] w-12 h-12 text-primary animate-float" style={{ animationDelay: "3s" }} />
-        <Parentheses className="absolute top-[60%] right-[20%] w-10 h-10 text-primary animate-float" style={{ animationDelay: "1.5s" }} />
-      </div>
-      
-      <div className="container max-w-4xl mx-auto text-center relative z-10">
-        {/* Avatar */}
-        <div className="mb-8 animate-fade-in">
-          <div className="relative inline-block">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-gradient p-1 animate-pulse-glow">
-              <img 
-                src={avatar} 
-                alt="Богдан - magister1o"
-                className="w-full h-full object-cover rounded-full"
-              />
+    <section id="hero" aria-label="Главная — Богдан Ваурянчук, Full-Stack Developer" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-24">
+      <div className="aurora-orb w-[700px] h-[700px] bg-gray-200 dark:bg-zinc-800 top-[-15%] left-[-15%] opacity-50 dark:opacity-15" />
+      <div className="aurora-orb w-[500px] h-[500px] bg-slate-200 dark:bg-slate-800 top-[30%] right-[-10%] opacity-35 dark:opacity-10" style={{ animationDelay: "5s" }} />
+      <div className="aurora-orb w-[400px] h-[400px] bg-zinc-100 dark:bg-zinc-900 bottom-[0%] left-[10%] opacity-50 dark:opacity-15" style={{ animationDelay: "9s" }} />
+
+      <div className="container max-w-4xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+
+          {/* Avatar */}
+          <div className="animate-fade-in shrink-0">
+            <div
+              className="w-44 h-44 md:w-52 md:h-52 rounded-3xl overflow-hidden border-2 border-black dark:border-white/95"
+              style={{
+                boxShadow: "0 24px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08)",
+              }}
+            >
+              <img src={avatar} alt="Богдан Ваурянчук" className="w-full h-full object-cover" />
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-mono">
-              17 лет
+          </div>
+
+          {/* Text content */}
+          <div className="flex-1 text-center md:text-left">
+            {/* Status pill */}
+            <div
+              className="animate-fade-in inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest"
+              style={{
+                background: "var(--pill-bg)",
+                border: "1px solid var(--pill-border)",
+                color: "var(--pill-color)",
+                animationDelay: "0.05s"
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
+              {t.hero.openTo}
+            </div>
+
+            {/* Name */}
+            <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-gray-50 tracking-tight leading-none mb-3">
+                {t.hero.name}
+              </h1>
+            </div>
+
+            {/* Title */}
+            <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
+              <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 font-medium mb-2 tracking-wide">
+                {t.hero.subtitle}
+              </p>
+              <p className="text-base text-gray-400 dark:text-gray-500 font-mono mb-8">
+                @magister1o
+              </p>
+            </div>
+
+            {/* Tagline */}
+            <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-lg whitespace-pre-line">
+                {t.hero.tagline}
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div
+              className="flex flex-col sm:flex-row gap-3 animate-slide-up justify-center md:justify-start"
+              style={{ animationDelay: "0.4s" }}
+            >
+              <a
+                href="https://t.me/magister1o"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ios-button-primary inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base"
+              >
+                {t.hero.cta}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="https://github.com/ItsMagisterio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ios-button-glass inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base"
+              >
+                <Github className="w-5 h-5" />
+                GitHub
+              </a>
+            </div>
+
+            {/* Location */}
+            <div
+              className="animate-slide-up flex items-center gap-2 text-gray-400 dark:text-gray-500 mt-6 text-sm justify-center md:justify-start"
+              style={{ animationDelay: "0.5s" }}
+            >
+              <MapPin className="w-4 h-4" />
+              <span>{t.hero.location}</span>
             </div>
           </div>
         </div>
 
-        {/* Name and title */}
-        <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-            <span className="text-foreground">Привет, я </span>
-            <span className="text-gradient">Богдан</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2 font-mono">
-            @magister1o
-          </p>
-          <p className="text-lg md:text-xl text-foreground/80 mb-6">
-            Full-Stack Developer & Энтузиаст
-          </p>
+        {/* Stats row */}
+        <div
+          className="animate-slide-up mt-16 md:mt-20 flex flex-wrap justify-center gap-4"
+          style={{ animationDelay: "0.55s" }}
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="glass-card rounded-2xl p-5 text-center w-36">
+              <p className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-50 tracking-tight">{stat.value}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">{stat.label}</p>
+            </div>
+          ))}
         </div>
-
-        {/* Location */}
-        <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
-          <MapPin className="w-5 h-5 text-primary" />
-          <span>Брест, Беларусь</span>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: "0.6s" }}>
-          <a 
-            href="https://github.com/ItsMagisterio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-transform glow-primary"
-          >
-            <Github className="w-5 h-5" />
-            GitHub
-          </a>
-          <a 
-            href="https://t.me/magister1o"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#229ED9] text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-transform"
-          >
-            <Send className="w-5 h-5" />
-            Telegram
-          </a>
-          <a 
-            href="#projects"
-            className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-secondary/80 transition-colors border border-border"
-          >
-            <Code2 className="w-5 h-5" />
-            Мои проекты
-          </a>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-8 h-8 text-primary opacity-70" />
       </div>
     </section>
   );

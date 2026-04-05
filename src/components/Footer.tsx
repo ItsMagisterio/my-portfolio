@@ -1,84 +1,66 @@
-import { Github, Heart, Send } from "lucide-react";
-import { SiTwitch, SiSteam, SiDiscord } from "react-icons/si";
+import { Github, Send, Eye } from "lucide-react";
+import { SiTwitch, SiSteam, SiDiscord, SiLinkedin } from "react-icons/si";
 import logoDark from "@/assets/logo-dark.jpg";
+import { useLang } from "@/contexts/LanguageContext";
+import { useVisitorCount } from "@/hooks/use-visitor-count";
 
 const Footer = () => {
+  const { t } = useLang();
+  const visitorCount = useVisitorCount();
+
   return (
-    <footer className="py-12 px-4 border-t border-border">
-      <div className="container max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo and name */}
-          <div className="flex items-center gap-3">
-            <img 
-              src={logoDark} 
-              alt="magister1o logo" 
-              className="w-10 h-10 rounded-lg"
-            />
-            <div>
-              <p className="font-bold">magister1o</p>
-              <p className="text-sm text-muted-foreground">Full-Stack Developer</p>
+    <footer className="py-12 px-4">
+      <div className="container max-w-4xl mx-auto">
+        <div className="glass-lg rounded-3xl p-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Logo and name */}
+            <div className="flex items-center gap-3">
+              <img src={logoDark} alt="magister1o logo" className="w-10 h-10 rounded-2xl" />
+              <div>
+                <p className="font-bold text-gray-900 dark:text-gray-100">magister1o</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t.footer.role}</p>
+              </div>
+            </div>
+
+            {/* Social links */}
+            <div className="flex items-center gap-2">
+              {[
+                { href: "https://github.com/ItsMagisterio", icon: Github, label: "GitHub", testId: "link-github" },
+                { href: "https://t.me/magister1o", icon: Send, label: "Telegram", testId: "link-telegram" },
+                { href: "https://discord.com/users/magister1o", icon: SiDiscord, label: "Discord", testId: "link-discord" },
+                { href: "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/", icon: SiLinkedin, label: "LinkedIn", testId: "link-linkedin" },
+                { href: "https://www.twitch.tv/magister1o", icon: SiTwitch, label: "Twitch", testId: "link-twitch" },
+                { href: "https://steamcommunity.com/id/magister1o/", icon: SiSteam, label: "Steam", testId: "link-steam" },
+              ].map(({ href, icon: Icon, label, testId }) => (
+                <a
+                  key={testId}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={label}
+                  data-testid={testId}
+                  className="p-2.5 rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Social links */}
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/ItsMagisterio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-secondary rounded-lg hover:bg-primary/20 hover:text-primary transition-colors"
-              data-testid="link-github"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-            <a
-              href="https://t.me/magister1o"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-secondary rounded-lg hover:bg-primary/20 hover:text-primary transition-colors"
-              data-testid="link-telegram"
-            >
-              <Send className="w-5 h-5" />
-            </a>
-            <a
-              href="https://discord.com/users/magister1o"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-secondary rounded-lg hover:bg-primary/20 hover:text-primary transition-colors"
-              data-testid="link-discord"
-              title="Discord: magister1o"
-            >
-              <SiDiscord className="w-5 h-5" />
-            </a>
-            <a
-              href="https://www.twitch.tv/magister1o"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-secondary rounded-lg hover:bg-primary/20 hover:text-primary transition-colors"
-              data-testid="link-twitch"
-            >
-              <SiTwitch className="w-5 h-5" />
-            </a>
-            <a
-              href="https://steamcommunity.com/id/magister1o/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-secondary rounded-lg hover:bg-primary/20 hover:text-primary transition-colors"
-              data-testid="link-steam"
-            >
-              <SiSteam className="w-5 h-5" />
-            </a>
+          <div className="mt-8 pt-6 border-t border-white/50 dark:border-white/10 text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              magister1o · {t.footer.role} · {t.footer.location}
+            </p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+              © {new Date().getFullYear()} magister1o. All rights reserved.
+            </p>
+            {visitorCount !== null && (
+              <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+                <Eye className="w-3.5 h-3.5" />
+                <span>{visitorCount.toLocaleString()} просмотров</span>
+              </div>
+            )}
           </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground flex items-center justify-center gap-1">
-            Сделано с <Heart className="w-4 h-4 text-primary" /> в Бресте, Беларусь
-          </p>
-          <p className="text-xs text-muted-foreground/60 mt-2">
-            © {new Date().getFullYear()} magister1o. Все права защищены.
-          </p>
         </div>
       </div>
     </footer>
