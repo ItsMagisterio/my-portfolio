@@ -57,6 +57,7 @@ const translations = {
       pinned: "Закреплено",
       showAll: "Показать все",
       hide: "Скрыть",
+      collapse: "Свернуть",
       code: "Код",
       site: "Сайт",
       badges: {
@@ -68,21 +69,45 @@ const translations = {
         thinking: "В размышлении",
         prize: "3 место из 54 работ в городе",
       },
+      pairedItem: {
+        techStack: [
+          { cat: "Язык", tech: "TypeScript" },
+          { cat: "Фреймворк", tech: "React" },
+          { cat: "Сборщик", tech: "Vite" },
+          { cat: "Стили", tech: "Tailwind CSS" },
+          { cat: "Роутинг", tech: "wouter" },
+          { cat: "Карта", tech: "Leaflet" },
+          { cat: "UI", tech: "@radix-ui" },
+          { cat: "State", tech: "@tanstack/react-query" },
+        ],
+        seoLabel: "SEO",
+        seoWork: [
+          "JSON-LD / структурированные данные",
+          "Мета-теги (title, description, og, twitter)",
+          "Технический SEO (robots, sitemap, canonical)",
+          "Индексируемость (prerender для Яндекса)",
+          "Core Web Vitals / LCP",
+        ],
+        projects: [
+          {
+            title: "shina24",
+            name: "Выездной шиномонтаж в Москве и МО",
+            tags: ["React", "Vite", "На заказ"],
+            link: "https://xn--b1adbcbmlf1aj2m.xn--p1ai/shina24",
+          },
+          {
+            title: "kondey",
+            name: "Заправка автокондиционеров в Москве и Московской области с выездом",
+            tags: ["React", "Vite", "На заказ"],
+            link: "https://xn--b1adbcbmlf1aj2m.xn--p1ai/",
+          },
+        ],
+      },
       items: [
-        {
-          title: "Coming Soon",
-          description: "Информация засекречена. Следите за обновлениями...",
-          tags: [],
-        },
         {
           title: "Katkova House",
           description: "Коммерческий сайт разработанный по заказу. Современный дизайн и полная функциональность для бизнеса.",
           tags: ["Коммерческий", "На заказ"],
-        },
-        {
-          title: "Vivr",
-          description: "Провёл полный SEO-аудит и оптимизацию сайта: настройка мета-тегов, структурированных данных, улучшение скорости и видимости в поисковых системах.",
-          tags: ["SEO", "Оптимизация", "На заказ"],
         },
         {
           title: "Gtanks",
@@ -113,11 +138,6 @@ const translations = {
           title: "CS:GO GS",
           description: "Инструмент на C++, эмулирующий Game Coordinator сервера CS:GO. Позволяет запускать игру с кастомной логикой и инвентарём.",
           tags: ["C++", "CS:GO", "Эмулятор", "Fork / Доработка"],
-        },
-        {
-          title: "Kufar Cheker",
-          description: "Веб-сервис для умного шопинга на Kufar.by: помогает отсеивать перекупщиков и находить аналоги товаров по более низкой цене.",
-          tags: ["React", "Парсинг", "Беларусь"],
         },
       ],
     },
@@ -181,6 +201,7 @@ const translations = {
       pinned: "Pinned",
       showAll: "Show all",
       hide: "Hide",
+      collapse: "Collapse",
       code: "Code",
       site: "Site",
       badges: {
@@ -192,21 +213,45 @@ const translations = {
         thinking: "Thinking",
         prize: "3rd place out of 54 works in the city",
       },
+      pairedItem: {
+        techStack: [
+          { cat: "Language", tech: "TypeScript" },
+          { cat: "Framework", tech: "React" },
+          { cat: "Bundler", tech: "Vite" },
+          { cat: "Styles", tech: "Tailwind CSS" },
+          { cat: "Routing", tech: "wouter" },
+          { cat: "Map", tech: "Leaflet" },
+          { cat: "UI", tech: "@radix-ui" },
+          { cat: "State", tech: "@tanstack/react-query" },
+        ],
+        seoLabel: "SEO",
+        seoWork: [
+          "JSON-LD / Structured data",
+          "Meta tags (title, description, og, twitter)",
+          "Technical SEO (robots, sitemap, canonical)",
+          "Indexability (prerender for Yandex)",
+          "Core Web Vitals / LCP",
+        ],
+        projects: [
+          {
+            title: "shina24",
+            name: "Mobile Tire Fitting in Moscow & Oblast",
+            tags: ["React", "Vite", "Custom"],
+            link: "https://xn--b1adbcbmlf1aj2m.xn--p1ai/shina24",
+          },
+          {
+            title: "kondey",
+            name: "Car A/C Recharge in Moscow & Oblast",
+            tags: ["React", "Vite", "Custom"],
+            link: "https://xn--b1adbcbmlf1aj2m.xn--p1ai/",
+          },
+        ],
+      },
       items: [
-        {
-          title: "Coming Soon",
-          description: "Information is classified. Stay tuned for updates...",
-          tags: [],
-        },
         {
           title: "Katkova House",
           description: "A commercial website built to order. Modern design and full functionality for business.",
           tags: ["Commercial", "Custom"],
-        },
-        {
-          title: "Vivr",
-          description: "Performed a full SEO audit and website optimization: meta tag setup, structured data, improved speed and search engine visibility.",
-          tags: ["SEO", "Optimization", "Custom"],
         },
         {
           title: "Gtanks",
@@ -237,11 +282,6 @@ const translations = {
           title: "CS:GO GS",
           description: "A C++ tool emulating the CS:GO Game Coordinator server. Allows launching the game with custom logic and inventory.",
           tags: ["C++", "CS:GO", "Emulator", "Fork / Modified"],
-        },
-        {
-          title: "Kufar Cheker",
-          description: "A web service for smart shopping on Kufar.by: helps filter out resellers and find product alternatives at lower prices.",
-          tags: ["React", "Parsing", "Belarus"],
         },
       ],
     },

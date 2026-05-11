@@ -1,61 +1,49 @@
 import { useState } from "react";
-import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, SearchCheck, HelpCircle, Lock, Pin, ShieldCheck, Cpu } from "lucide-react";
+import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu } from "lucide-react";
+import shina24Logo from "@/assets/shina24-logo.png";
+import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
 import psgekLogo from "@/assets/psgek-logo.png";
 import katkovaLogo from "@/assets/katkova-logo.png";
 import gtanksLogo from "@/assets/gtanks-logo.png";
-import vivrLogo from "@/assets/vivr-logo.png";
 import cybertankzLogo from "@/assets/cybertankz-logo.png";
 import tankixLogo from "@/assets/tankix-logo.png";
-import kufarChekerLogo from "@/assets/kufar-cheker-logo.png";
 import csgoGsLogo from "@/assets/csgo-gs-logo.png";
-import comingSoonLogo from "@/assets/coming-soon-logo.png";
 import { useLang } from "@/contexts/LanguageContext";
 
 const projectImages = [
-  comingSoonLogo,
   katkovaLogo,
-  vivrLogo,
   gtanksLogo,
   flashtankiLogo,
   psgekLogo,
   cybertankzLogo,
   tankixLogo,
   csgoGsLogo,
-  kufarChekerLogo,
 ];
 
-const projectIcons = [Lock, Home, SearchCheck, Gamepad2, Gamepad2, Zap, Gamepad2, Gamepad2, Cpu, ShieldCheck];
+const projectIcons = [Home, Gamepad2, Gamepad2, Zap, Gamepad2, Gamepad2, Cpu];
 
 const projectLinks: (string | undefined)[] = [
-  undefined,
   "https://katkova-house.ru/",
-  "https://vivr.by/",
   undefined,
   undefined,
   "https://psgek.belarus.by/",
   undefined,
   undefined,
   undefined,
-  "http://kufarcheker.rf.gd/",
 ];
 
 const projectGithubs: (string | undefined)[] = [
   undefined,
-  undefined,
-  undefined,
   "https://github.com/ItsMagisterio",
   "https://github.com/ItsMagisterio",
   undefined,
   undefined,
   undefined,
   "https://github.com/ItsMagisterio",
-  undefined,
 ];
 
 const projectStatuses = [
-  { topSecret: true, pinned: true },
-  { completed: true },
   { completed: true },
   { completed: true },
   { frozen: true },
@@ -63,7 +51,6 @@ const projectStatuses = [
   { frozen: true },
   { earlyDev: true },
   { inDevelopment: true },
-  { thinking: true },
 ];
 
 const getStatusKey = (status: Record<string, any>): string | null => {
@@ -119,13 +106,6 @@ const ProjectCard = ({
 
   return (
     <div className="glass-card rounded-3xl overflow-hidden group relative flex flex-col">
-      {pinned && (
-        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 glass px-3 py-1 rounded-full">
-          <Pin className="w-3 h-3 text-gray-700 dark:text-gray-300 fill-gray-700 dark:fill-gray-300" />
-          <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">{t.projects.pinned}</span>
-        </div>
-      )}
-
       {badgeStyle && badgeLabel && (
         <div
           className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-xs font-semibold"
@@ -210,6 +190,131 @@ const ProjectCard = ({
   );
 };
 
+const pairedImages: Record<string, string> = {
+  shina24: shina24Logo,
+  kondey: kondeyLogo,
+};
+
+const STACK_PREVIEW = 4;
+
+const PairedProjectCard = () => {
+  const { t } = useLang();
+  const { projects, techStack, seoLabel, seoWork } = t.projects.pairedItem;
+  const [stackExpanded, setStackExpanded] = useState(false);
+  const visibleStack = stackExpanded ? techStack : techStack.slice(0, STACK_PREVIEW);
+  const SEO_PREVIEW = 2;
+  const [seoExpanded, setSeoExpanded] = useState(false);
+  const visibleSeo = seoExpanded ? seoWork : seoWork.slice(0, SEO_PREVIEW);
+
+  return (
+    <div className="glass-card rounded-3xl overflow-hidden col-span-1 md:col-span-2 flex flex-col">
+      {/* Top: two project halves side by side */}
+      <div className="flex flex-col sm:flex-row">
+        {projects.map((project, i) => (
+          <div
+            key={project.title}
+            className={`group flex-1 flex flex-col ${i === 0 ? "border-b sm:border-b-0 sm:border-r border-gray-200 dark:border-zinc-800" : ""}`}
+          >
+            <div
+              className="relative h-44 flex items-center justify-center overflow-hidden"
+              style={{ background: "var(--project-img-bg)" }}
+            >
+              <img
+                src={pairedImages[project.title]}
+                alt={project.title}
+                className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
+              />
+              <div
+                className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-xs font-semibold"
+                style={{ background: "rgba(52, 199, 89, 0.12)", color: "#22C55E" }}
+              >
+                {t.projects.badges.completed}
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-white/60 dark:from-black/50 to-transparent" />
+            </div>
+
+            <div className="p-5 flex flex-col">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 rounded-xl" style={{ background: "var(--icon-bg)" }}>
+                  <Home className="w-4 h-4" style={{ color: "var(--tag-color)" }} />
+                </div>
+                <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 leading-tight">{project.name}</h3>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2.5 py-1 rounded-full font-medium"
+                    style={{ background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors font-medium"
+              >
+                <ExternalLink className="w-4 h-4" />
+                {t.projects.site}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Tech stack inline */}
+      <div className="border-t border-gray-200 dark:border-zinc-800 px-5 py-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        {visibleStack.map((row) => (
+          <span key={row.cat} className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-gray-400 dark:text-gray-600">{row.cat}:</span>{" "}
+            <span className="font-medium text-gray-700 dark:text-gray-300">{row.tech}</span>
+          </span>
+        ))}
+        {techStack.length > STACK_PREVIEW && (
+          <button
+            onClick={() => setStackExpanded(!stackExpanded)}
+            className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          >
+            {stackExpanded ? (
+              <><ChevronUp className="w-3 h-3" /> {t.projects.collapse}</>
+            ) : (
+              <><ChevronDown className="w-3 h-3" /> +{techStack.length - STACK_PREVIEW}</>
+            )}
+          </button>
+        )}
+      </div>
+
+      {/* SEO work inline */}
+      <div className="border-t border-gray-200 dark:border-zinc-800 px-5 py-3 flex flex-wrap items-center gap-x-1.5 gap-y-1.5">
+        <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 mr-1">{seoLabel}:</span>
+        {visibleSeo.map((item, i) => (
+          <span key={item} className="flex items-center gap-1.5">
+            <span className="text-xs text-gray-600 dark:text-gray-400">{item}</span>
+            {i < visibleSeo.length - 1 && <span className="text-gray-300 dark:text-zinc-700">·</span>}
+          </span>
+        ))}
+        {seoWork.length > SEO_PREVIEW && (
+          <button
+            onClick={() => setSeoExpanded(!seoExpanded)}
+            className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors ml-0.5"
+          >
+            {seoExpanded ? (
+              <><ChevronUp className="w-3 h-3" /> {t.projects.collapse}</>
+            ) : (
+              <><ChevronDown className="w-3 h-3" /> +{seoWork.length - SEO_PREVIEW}</>
+            )}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
   const { t } = useLang();
@@ -217,7 +322,7 @@ const ProjectsSection = () => {
   const allItems = t.projects.items;
   const pinnedItems = allItems.slice(0, 1);
   const regularItems = allItems.slice(1);
-  const visibleRegular = showAll ? regularItems : regularItems.slice(0, 2);
+  const visibleRegular = showAll ? regularItems : regularItems.slice(0, 3);
 
   return (
     <section id="projects" aria-label="Портфолио и реализованные проекты" className="py-24 px-4 relative">
@@ -236,6 +341,7 @@ const ProjectsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <PairedProjectCard />
           {pinnedItems.map((item, i) => (
             <ProjectCard
               key={item.title}
