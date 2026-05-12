@@ -45,11 +45,11 @@ const projectGithubs: (string | undefined)[] = [
 
 const projectStatuses = [
   { completed: true },
-  { completed: true },
+  { frozen: true },
   { frozen: true },
   { prize: "3 место из 54 работ в городе" },
   { frozen: true },
-  { earlyDev: true },
+  { frozen: true },
   { inDevelopment: true },
 ];
 
@@ -84,6 +84,8 @@ const ProjectCard = ({
   pinned,
   github,
   link,
+  className,
+  style,
 }: {
   title: string;
   description: string;
@@ -94,6 +96,8 @@ const ProjectCard = ({
   pinned?: boolean;
   github?: string;
   link?: string;
+  className?: string;
+  style?: React.CSSProperties;
 }) => {
   const { t } = useLang();
   const statusKey = getStatusKey(status);
@@ -105,7 +109,7 @@ const ProjectCard = ({
   const isTankiTitle = title.toLowerCase().includes("tanki") || title.toLowerCase().includes("gtanks");
 
   return (
-    <div className="glass-card rounded-3xl overflow-hidden group relative flex flex-col">
+    <div className={`glass-card rounded-3xl overflow-hidden group relative flex flex-col${className ? ` ${className}` : ""}`} style={style}>
       {badgeStyle && badgeLabel && (
         <div
           className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-xs font-semibold"
@@ -143,25 +147,7 @@ const ProjectCard = ({
           {description}
         </p>
 
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs font-medium px-2.5 py-1 rounded-full"
-                style={{
-                  background: "var(--tag-bg)",
-                  color: "var(--tag-color)",
-                  border: "1px solid var(--tag-border)",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-4">
           {github && !isTankiTitle && (
             <a
               href={github}
@@ -185,6 +171,24 @@ const ProjectCard = ({
             </a>
           )}
         </div>
+
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-medium px-2.5 py-1 rounded-full"
+                style={{
+                  background: "var(--tag-bg)",
+                  color: "var(--tag-color)",
+                  border: "1px solid var(--tag-border)",
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -233,7 +237,7 @@ const PairedProjectCard = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-white/60 dark:from-black/50 to-transparent" />
             </div>
 
-            <div className="p-5 flex flex-col">
+            <div className="p-5 flex flex-col flex-1">
               <div className="flex items-center gap-2 mb-3">
                 <div className="p-1.5 rounded-xl" style={{ background: "var(--icon-bg)" }}>
                   <Home className="w-4 h-4" style={{ color: "var(--tag-color)" }} />
@@ -241,7 +245,19 @@ const PairedProjectCard = () => {
                 <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 leading-tight">{project.name}</h3>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 mb-3">
+              <div className="flex-1" />
+
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors font-medium mb-3"
+              >
+                <ExternalLink className="w-4 h-4" />
+                {t.projects.site}
+              </a>
+
+              <div className="flex flex-wrap gap-1.5">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
@@ -252,16 +268,6 @@ const PairedProjectCard = () => {
                   </span>
                 ))}
               </div>
-
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors font-medium"
-              >
-                <ExternalLink className="w-4 h-4" />
-                {t.projects.site}
-              </a>
             </div>
           </div>
         ))}
@@ -317,12 +323,32 @@ const PairedProjectCard = () => {
 
 const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(true);
   const { t } = useLang();
 
   const allItems = t.projects.items;
   const pinnedItems = allItems.slice(0, 1);
   const regularItems = allItems.slice(1);
-  const visibleRegular = showAll ? regularItems : regularItems.slice(0, 3);
+  const visibleRegular = (showAll || isClosing) ? regularItems : regularItems.slice(0, 3);
+
+  const handleToggle = () => {
+    if (showAll) {
+      setButtonVisible(false);
+      setIsClosing(true);
+      setShowAll(false);
+      const extraCount = regularItems.length - 3;
+      const delay = 400 + extraCount * 60;
+      setTimeout(() => {
+        setIsClosing(false);
+        setTimeout(() => setButtonVisible(true), 60);
+      }, delay);
+    } else {
+      setButtonVisible(false);
+      setShowAll(true);
+      setTimeout(() => setButtonVisible(true), 60);
+    }
+  };
 
   return (
     <section id="projects" aria-label="Портфолио и реализованные проекты" className="py-24 px-4 relative">
@@ -358,6 +384,9 @@ const ProjectsSection = () => {
           ))}
           {visibleRegular.map((item, i) => {
             const idx = i + 1;
+            const isNew = showAll && i >= 3;
+            const isLeaving = isClosing && i >= 3;
+            const extraIdx = i - 3;
             return (
               <ProjectCard
                 key={item.title}
@@ -369,15 +398,24 @@ const ProjectsSection = () => {
                 status={projectStatuses[idx]}
                 github={projectGithubs[idx]}
                 link={projectLinks[idx]}
+                className={isLeaving ? "card-disappear" : isNew ? "card-appear" : undefined}
+                style={
+                  isLeaving || isNew
+                    ? { animationDelay: `${extraIdx * 60}ms` }
+                    : undefined
+                }
               />
             );
           })}
         </div>
 
         {regularItems.length > 2 && (
-          <div className="mt-12 text-center">
+          <div
+            className="mt-12 text-center transition-opacity duration-200"
+            style={{ opacity: buttonVisible ? 1 : 0, pointerEvents: buttonVisible ? "auto" : "none" }}
+          >
             <button
-              onClick={() => setShowAll(!showAll)}
+              onClick={handleToggle}
               className="ios-button-glass inline-flex items-center gap-2 px-7 py-3 text-sm"
             >
               {showAll ? (

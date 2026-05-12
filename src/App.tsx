@@ -8,6 +8,8 @@ import PcBusiness from "./pages/PcBusiness";
 import NotFound from "./pages/NotFound";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Preloader from "./components/Preloader";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +18,8 @@ const App = () => (
   <LanguageProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <Preloader />
+      <ScrollToTop />
       <Toaster />
       <Sonner />
       <BrowserRouter>
