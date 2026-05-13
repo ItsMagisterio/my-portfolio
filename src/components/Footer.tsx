@@ -1,12 +1,10 @@
-import { Github, Send, Eye } from "lucide-react";
+import { Github, Send } from "lucide-react";
 import { SiTwitch, SiSteam, SiDiscord, SiLinkedin } from "react-icons/si";
 import logoDark from "@/assets/logo-dark.jpg";
 import { useLang } from "@/contexts/LanguageContext";
-import { useVisitorCount } from "@/hooks/use-visitor-count";
 
 const Footer = () => {
   const { t } = useLang();
-  const visitorCount = useVisitorCount();
 
   return (
     <footer className="py-12 px-4">
@@ -54,12 +52,6 @@ const Footer = () => {
             <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
               © {new Date().getFullYear()} magister1o. All rights reserved.
             </p>
-            {visitorCount !== null && (
-              <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-                <Eye className="w-3.5 h-3.5" />
-                <span>{visitorCount.toLocaleString()} просмотров</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
