@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu } from "lucide-react";
+import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu, type LucideIcon } from "lucide-react";
 import shina24Logo from "@/assets/shina24-logo.png";
 import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
@@ -43,7 +43,9 @@ const projectGithubs: (string | undefined)[] = [
   "https://github.com/ItsMagisterio",
 ];
 
-const projectStatuses = [
+type ProjectStatus = Partial<Record<"completed" | "frozen" | "inDevelopment" | "prize" | "earlyDev" | "topSecret" | "thinking", boolean | string>>;
+
+const projectStatuses: ProjectStatus[] = [
   { completed: true },
   { frozen: true },
   { frozen: true },
@@ -53,7 +55,7 @@ const projectStatuses = [
   { inDevelopment: true },
 ];
 
-const getStatusKey = (status: Record<string, any>): string | null => {
+const getStatusKey = (status: ProjectStatus): keyof ProjectStatus | null => {
   if (status.frozen) return "frozen";
   if (status.inDevelopment) return "inDevelopment";
   if (status.completed) return "completed";
@@ -91,8 +93,8 @@ const ProjectCard = ({
   description: string;
   tags: string[];
   image: string;
-  icon: any;
-  status: Record<string, any>;
+  icon: LucideIcon;
+  status: ProjectStatus;
   pinned?: boolean;
   github?: string;
   link?: string;
