@@ -55,6 +55,21 @@ const Footer = () => {
             <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
               © {new Date().getFullYear()} magister1o. All rights reserved.
             </p>
+            <div className="mt-3 flex items-center justify-center gap-4">
+              <a
+                href="/terms"
+                className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
+              >
+                {t.footer.terms}
+              </a>
+              <span className="text-gray-300 dark:text-gray-600 text-xs">·</span>
+              <a
+                href="/copyright"
+                className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
+              >
+                {t.footer.copyright}
+              </a>
+            </div>
           </div>
         </div>
       </div>

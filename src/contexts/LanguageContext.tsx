@@ -143,6 +143,8 @@ const translations = {
     footer: {
       role: "Middle Full-Stack Developer",
       location: "Брест, Беларусь",
+      terms: "Условия использования",
+      copyright: "Политика авторских прав",
     },
   },
 
@@ -286,6 +288,8 @@ const translations = {
     footer: {
       role: "Middle Full-Stack Developer",
       location: "Brest, Belarus",
+      terms: "Terms of Use",
+      copyright: "Copyright Policy",
     },
   },
 };
@@ -301,9 +305,18 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>("ru");
+  const [lang, setLang] = useState<Lang>(() => {
+    const saved = localStorage.getItem("lang");
+    return saved === "en" || saved === "ru" ? saved : "ru";
+  });
+
+  const handleSetLang = (l: Lang) => {
+    localStorage.setItem("lang", l);
+    setLang(l);
+  };
+
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ lang, setLang: handleSetLang, t: translations[lang] }}>
       {children}
     </LanguageContext.Provider>
   );

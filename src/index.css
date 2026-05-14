@@ -352,18 +352,59 @@
   animation: card-disappear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 100px;
-  transition: background 0.2s;
+/* Custom Scrollbar — Light */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.30); }
+::-webkit-scrollbar-track {
+  background: hsl(220 30% 92%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(220 15% 65%);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(220 15% 50%);
+}
+::-webkit-scrollbar-thumb:active {
+  background: hsl(220 15% 35%);
+}
+::-webkit-scrollbar-corner {
+  background: hsl(220 30% 92%);
+}
 
-.dark ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); }
-.dark ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+/* Custom Scrollbar — Dark */
+html.dark ::-webkit-scrollbar-track {
+  background: hsl(220 15% 10%);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: hsl(220 15% 28%);
+  border-radius: 100px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(220 15% 42%);
+}
+html.dark ::-webkit-scrollbar-thumb:active {
+  background: hsl(220 15% 55%);
+}
+html.dark ::-webkit-scrollbar-corner {
+  background: hsl(220 15% 10%);
+}
+
+/* Firefox only */
+@-moz-document url-prefix() {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 110, 140, 0.45) rgba(0, 0, 0, 0.06);
+  }
+  html.dark {
+    scrollbar-color: rgba(180, 190, 220, 0.25) rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Hide native cursor — custom cursor active */
+*, *::before, *::after { cursor: none !important; }
 
 /* Scroll lock while preloader active */
 body.preloader-open { overflow: hidden; }
