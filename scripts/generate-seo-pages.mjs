@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const DIST_DIR = "dist";
@@ -43,6 +43,7 @@ const baseHeadLinks = () => `
     <meta name="author" content="Богдан Вавренчук (magister1o)" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="application-name" content="magister1o — Portfolio" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="google-site-verification" content="412f0887e4608c8b" />
     <meta name="yandex-verification" content="1530d5ee6e11bcff" />
     <meta name="geo.region" content="BY-BR" />
@@ -229,7 +230,7 @@ const legalSchemas = (key, lang) => {
   ];
 };
 
-const buildHead = ({ lang, title, description, canonicalPath, robots = DEFAULT_ROBOTS, alternatesFor = "/", type = "website", schemas = [], assetTags }) => {
+const buildHead = ({ lang, title, description, canonicalPath, robots = DEFAULT_ROBOTS, alternatesFor = "/", type = "website", schemas = [], assetTags, lcpImagePreload = "" }) => {
   const canonical = absoluteUrl(canonicalPath);
   const locale = lang === "ru" ? "ru_RU" : "en_US";
   const alternateLocale = lang === "ru" ? "en_US" : "ru_RU";
@@ -259,6 +260,7 @@ ${metaTag("twitter:description", description)}
 ${metaTag("twitter:image", OG_IMAGE)}
 ${metaTag("twitter:image:alt", lang === "ru" ? homeSeo.ru.imageAlt : homeSeo.en.imageAlt)}
 ${schemas.map(jsonLd).join("\n")}
+${lcpImagePreload}
 ${assetTags}
   </head>`;
 };
@@ -302,6 +304,10 @@ const assetTags = [...template.matchAll(/\n\s*(?:<script\b[^>]*><\/script>|<link
   .map((match) => match[0])
   .filter((tag) => tag.includes("/assets/"))
   .join("\n");
+const avatarAsset = readdirSync(join(DIST_DIR, "assets")).find((asset) => /^avatar-.*\.png$/.test(asset));
+const lcpImagePreload = avatarAsset
+  ? `    <link rel="preload" as="image" href="/assets/${avatarAsset}" fetchpriority="high" />`
+  : "";
 const body = template.match(/<body>[\s\S]*<\/body>/)?.[0];
 if (!body) throw new Error("Could not find <body> in dist/index.html");
 
@@ -325,6 +331,7 @@ for (const lang of ["ru", "en"]) {
       alternatesFor: "/",
       schemas: homeSchemas(lang),
       assetTags,
+      lcpImagePreload,
     }),
     noscript: homeNoscript(lang),
   });

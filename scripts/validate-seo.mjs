@@ -54,6 +54,10 @@ for (const { key, page, lang, seo } of pageEntries) {
   assert(html.includes('name="twitter:card" content="summary_large_image"'), `${relativeFile}: missing twitter card`);
   assert(html.includes('rel="manifest" href="/site.webmanifest"'), `${relativeFile}: missing web manifest link`);
   assert(html.includes('name="format-detection" content="telephone=no"'), `${relativeFile}: missing mobile format detection meta`);
+  assert(html.includes('name="color-scheme" content="dark light"'), `${relativeFile}: missing color-scheme meta`);
+  if (key === "home") {
+    assert(/<link rel="preload" as="image" href="\/assets\/avatar-[^"]+\.png" fetchpriority="high" \/>/.test(html), `${relativeFile}: missing LCP avatar preload`);
+  }
   assert(/<script type="module"[^>]*src="\/assets\/[^"]+"><\/script>/.test(html), `${relativeFile}: module script is missing or not closed`);
   assert(/<link rel="stylesheet"[^>]*href="\/assets\/[^"]+\.css"/.test(html), `${relativeFile}: stylesheet asset is missing`);
   assert(scripts.length === closedScripts.length, `${relativeFile}: script tag mismatch (${scripts.length}/${closedScripts.length})`);
@@ -96,6 +100,10 @@ for (const source of ["/terms", "/en/terms", "/copyright", "/en/copyright"]) {
     vercelConfig.headers?.some((entry) => entry.source === source && entry.headers.some((header) => header.key === "X-Robots-Tag" && header.value === "noindex, follow")),
     `vercel: missing X-Robots-Tag for ${source}`,
   );
+}
+const globalHeaders = vercelConfig.headers?.find((entry) => entry.source === "/(.*)")?.headers ?? [];
+for (const key of ["X-Content-Type-Options", "Referrer-Policy", "Permissions-Policy"]) {
+  assert(globalHeaders.some((header) => header.key === key), `vercel: missing global ${key} header`);
 }
 
 console.log(`SEO validation passed for ${pageEntries.length} generated pages.`);
