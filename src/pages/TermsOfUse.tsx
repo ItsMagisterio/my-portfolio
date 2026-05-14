@@ -3,6 +3,7 @@ import { defaultAlternates, localizedPath } from "@/lib/seo";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import seoData from "@/lib/seo-data.json";
 
 const link = (href: string, label: string) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 underline underline-offset-2 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
@@ -17,6 +18,7 @@ const TermsOfUse = () => {
   const { lang } = useLang();
 
   const isRu = lang === "ru";
+  const pageSeo = seoData.pages.terms[lang];
 
   const intro = isRu ? (
     <>
@@ -208,11 +210,8 @@ const TermsOfUse = () => {
     <>
       <Seo
         lang={lang}
-        title={isRu ? "Условия использования — magister1o" : "Terms of Use — magister1o"}
-        description={isRu
-          ? "Условия использования сайта-портфолио Богдана Вавренчука (magister1o) — Full-Stack разработчика из Бреста, Беларусь."
-          : "Terms of Use for the portfolio website of Bogdan Vavrenchuk (magister1o) — Full-Stack developer from Brest, Belarus."
-        }
+        title={pageSeo.title}
+        description={pageSeo.description}
         canonicalPath={localizedPath(lang, "/terms")}
         robots="noindex, follow"
         alternates={defaultAlternates("/terms")}

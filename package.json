@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "postbuild": "node scripts/generate-seo-pages.mjs",
+    "test:seo": "node scripts/validate-seo.mjs"
   },
   "engines": {
     "node": "24.x"
