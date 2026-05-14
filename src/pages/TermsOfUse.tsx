@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import Seo from "@/components/Seo";
+import { defaultAlternates, localizedPath } from "@/lib/seo";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
@@ -205,15 +206,17 @@ const TermsOfUse = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{isRu ? "Условия использования — magister1o" : "Terms of Use — magister1o"}</title>
-        <meta name="description" content={isRu
+      <Seo
+        lang={lang}
+        title={isRu ? "Условия использования — magister1o" : "Terms of Use — magister1o"}
+        description={isRu
           ? "Условия использования сайта-портфолио Богдана Вавренчука (magister1o) — Full-Stack разработчика из Бреста, Беларусь."
           : "Terms of Use for the portfolio website of Bogdan Vavrenchuk (magister1o) — Full-Stack developer from Brest, Belarus."
-        } />
-        <link rel="canonical" href="https://magister1o-portfolio.vercel.app/terms" />
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+        }
+        canonicalPath={localizedPath(lang, "/terms")}
+        robots="noindex, follow"
+        alternates={defaultAlternates("/terms")}
+      />
     <div className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
       <div className="aurora-orb w-[500px] h-[500px] bg-gray-200 dark:bg-zinc-800 top-[-10%] right-[-10%] opacity-40 dark:opacity-10" />
       <div className="container max-w-3xl mx-auto relative z-10">

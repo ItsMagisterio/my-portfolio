@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import Seo from "@/components/Seo";
+import { defaultAlternates, localizedPath } from "@/lib/seo";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
@@ -136,12 +137,14 @@ const CopyrightPolicy = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{helmetTitle}</title>
-        <meta name="description" content={helmetDesc} />
-        <link rel="canonical" href="https://magister1o-portfolio.vercel.app/copyright" />
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+      <Seo
+        lang={lang}
+        title={helmetTitle}
+        description={helmetDesc}
+        canonicalPath={localizedPath(lang, "/copyright")}
+        robots="noindex, follow"
+        alternates={defaultAlternates("/copyright")}
+      />
     <div className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
       <div className="aurora-orb w-[500px] h-[500px] bg-gray-200 dark:bg-zinc-800 top-[-10%] left-[-10%] opacity-40 dark:opacity-10" />
       <div className="container max-w-3xl mx-auto relative z-10">
