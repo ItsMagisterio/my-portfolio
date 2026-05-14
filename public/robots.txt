@@ -6,6 +6,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /*.json$
 Crawl-delay: 1
 
 # ═══ GOOGLE ═══
@@ -125,6 +126,9 @@ Allow: /
 User-agent: Slackbot
 Allow: /
 
+User-agent: Googlebot-rich-snippets
+Allow: /
+
 # ═══ SEO TOOLS ═══
 User-agent: AhrefsBot
 Allow: /
@@ -137,6 +141,14 @@ Crawl-delay: 2
 User-agent: MJ12bot
 Allow: /
 Crawl-delay: 3
+
+User-agent: DotBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: rogerbot
+Allow: /
+Crawl-delay: 2
 
 # ═══ SITEMAPS ═══
 Sitemap: https://magister1o-portfolio.vercel.app/sitemap.xml
