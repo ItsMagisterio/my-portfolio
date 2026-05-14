@@ -4,6 +4,7 @@ import logoDark from "@/assets/logo-dark.jpg";
 import { cn } from "@/lib/utils";
 import { useLang } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import { localizedPath } from "@/lib/seo";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +36,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between px-5 h-14">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 shrink-0">
+          <a href={localizedPath(lang, "/")} className="flex items-center gap-2.5 shrink-0">
             <img src={logoDark} alt="Logo" className="w-7 h-7 rounded-xl" />
             <span className="font-bold text-base text-gray-800 dark:text-gray-200 tracking-tight">magister1o</span>
           </a>

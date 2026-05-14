@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import Seo from "@/components/Seo";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Home, ArrowLeft } from "lucide-react";
@@ -32,10 +32,13 @@ const NotFound = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{lang === "ru" ? "404 — Страница не найдена | magister1o" : "404 — Page not found | magister1o"}</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      <Seo
+        lang={lang}
+        title={lang === "ru" ? "404 — Страница не найдена | magister1o" : "404 — Page not found | magister1o"}
+        description={text.desc}
+        canonicalPath={location.pathname}
+        robots="noindex, nofollow"
+      />
 
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 bg-background">
         <div className="aurora-orb w-[600px] h-[600px] bg-gray-200 dark:bg-zinc-800 top-[-20%] left-[-20%] opacity-50 dark:opacity-15" />

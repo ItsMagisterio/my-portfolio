@@ -306,15 +306,40 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
+const getInitialLang = (): Lang => {
+  if (typeof window === "undefined") return "ru";
+
+  const pathLang = window.location.pathname.split("/").filter(Boolean)[0];
+  if (pathLang === "en" || pathLang === "ru") return pathLang;
+
+  const saved = window.localStorage.getItem("lang");
+  return saved === "en" || saved === "ru" ? saved : "ru";
+};
+
+const getLocalizedPath = (nextLang: Lang) => {
+  const { pathname, search, hash } = window.location;
+  const pathWithoutLang = pathname.replace(/^\/(ru|en)(?=\/|$)/, "") || "/";
+  const normalizedPath = pathWithoutLang === "/" ? "/" : pathWithoutLang.replace(/\/$/, "");
+  const nextPath = nextLang === "en"
+    ? normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`
+    : normalizedPath;
+
+  return `${nextPath}${search}${hash}`;
+};
+
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>(() => {
-    const saved = localStorage.getItem("lang");
-    return saved === "en" || saved === "ru" ? saved : "ru";
-  });
+  const [lang, setLang] = useState<Lang>(getInitialLang);
 
   const handleSetLang = (l: Lang) => {
-    localStorage.setItem("lang", l);
+    window.localStorage.setItem("lang", l);
     setLang(l);
+
+    const nextUrl = getLocalizedPath(l);
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (nextUrl !== currentUrl) {
+      window.location.assign(nextUrl);
+    }
   };
 
   return (

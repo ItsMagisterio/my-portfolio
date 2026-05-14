@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import Seo from "@/components/Seo";
+import { defaultAlternates, localizedPath } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -22,21 +23,17 @@ const SEO_EN = {
 const Index = () => {
   const { lang } = useLang();
   const seo = lang === "ru" ? SEO_RU : SEO_EN;
-  const canonical = "https://magister1o-portfolio.vercel.app/";
+  const canonicalPath = localizedPath(lang, "/");
 
   return (
     <>
-      <Helmet>
-        <html lang={lang} />
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta property="og:url" content={canonical} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <Seo
+        lang={lang}
+        title={seo.title}
+        description={seo.description}
+        canonicalPath={canonicalPath}
+        alternates={defaultAlternates("/")}
+      />
 
       <div className="min-h-screen bg-background">
         <Navbar />

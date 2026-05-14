@@ -2,9 +2,10 @@ import { Github, Send } from "lucide-react";
 import { SiTwitch, SiSteam, SiDiscord, SiLinkedin } from "react-icons/si";
 import logoDark from "@/assets/logo-dark.jpg";
 import { useLang } from "@/contexts/LanguageContext";
+import { localizedPath } from "@/lib/seo";
 
 const Footer = () => {
-  const { t } = useLang();
+  const { lang, t } = useLang();
 
   return (
     <footer className="py-12 px-4">
@@ -57,14 +58,14 @@ const Footer = () => {
             </p>
             <div className="mt-3 flex items-center justify-center gap-4">
               <a
-                href="/terms"
+                href={localizedPath(lang, "/terms")}
                 className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
               >
                 {t.footer.terms}
               </a>
               <span className="text-gray-300 dark:text-gray-600 text-xs">·</span>
               <a
-                href="/copyright"
+                href={localizedPath(lang, "/copyright")}
                 className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
               >
                 {t.footer.copyright}
