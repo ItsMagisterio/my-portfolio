@@ -404,7 +404,9 @@ html.dark ::-webkit-scrollbar-corner {
 }
 
 /* Hide native cursor — custom cursor active */
-*, *::before, *::after { cursor: none !important; }
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
 
 /* Scroll lock while preloader active */
 body.preloader-open { overflow: hidden; }

@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from "react";
 const CLICKABLE = 'a, button, input, textarea, select, label, [role="button"], [tabindex]';
 const SPRING = 0.18;
 
+const isTouch = () =>
+  window.matchMedia("(pointer: coarse)").matches ||
+  navigator.maxTouchPoints > 0;
+
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const target = useRef({ x: -200, y: -200 });
@@ -10,8 +14,11 @@ const CustomCursor = () => {
   const raf = useRef<number>(0);
   const [state, setState] = useState<"default" | "hover" | "click">("default");
   const [visible, setVisible] = useState(false);
+  const [touch, setTouch] = useState(false);
 
   useEffect(() => {
+    if (isTouch()) { setTouch(true); return; }
+
     const onMove = (e: MouseEvent) => {
       target.current = { x: e.clientX, y: e.clientY };
       if (!visible) setVisible(true);
@@ -61,6 +68,8 @@ const CustomCursor = () => {
       cancelAnimationFrame(raf.current);
     };
   }, [visible]);
+
+  if (touch) return null;
 
   const scale = state === "click" ? 0.82 : state === "hover" ? 1.18 : 1;
   const svgW = 22;
