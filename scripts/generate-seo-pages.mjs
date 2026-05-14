@@ -56,7 +56,11 @@ const baseHeadLinks = () => `
     <link rel="dns-prefetch" href="https://www.linkedin.com" />
     <link rel="icon" type="image/jpeg" href="/logo-dark.jpg" />
     <link rel="apple-touch-icon" href="/logo-dark.jpg" />
-    <link rel="shortcut icon" href="/favicon.ico" />`;
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="magister1o" />`;
 
 const metaTag = (name, content) => `    <meta name="${name}" content="${escapeHtml(content)}" />`;
 const propertyTag = (property, content) => `    <meta property="${property}" content="${escapeHtml(content)}" />`;

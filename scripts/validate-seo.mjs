@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const DIST_DIR = "dist";
@@ -52,6 +52,8 @@ for (const { key, page, lang, seo } of pageEntries) {
   assert(html.includes('property="og:image:width" content="1200"'), `${relativeFile}: missing og image width`);
   assert(html.includes('property="og:image:height" content="630"'), `${relativeFile}: missing og image height`);
   assert(html.includes('name="twitter:card" content="summary_large_image"'), `${relativeFile}: missing twitter card`);
+  assert(html.includes('rel="manifest" href="/site.webmanifest"'), `${relativeFile}: missing web manifest link`);
+  assert(html.includes('name="format-detection" content="telephone=no"'), `${relativeFile}: missing mobile format detection meta`);
   assert(/<script type="module"[^>]*src="\/assets\/[^"]+"><\/script>/.test(html), `${relativeFile}: module script is missing or not closed`);
   assert(/<link rel="stylesheet"[^>]*href="\/assets\/[^"]+\.css"/.test(html), `${relativeFile}: stylesheet asset is missing`);
   assert(scripts.length === closedScripts.length, `${relativeFile}: script tag mismatch (${scripts.length}/${closedScripts.length})`);
@@ -73,5 +75,27 @@ assert(sitemap.includes(`<loc>${siteUrl}/</loc>`), "sitemap: missing ru home");
 assert(sitemap.includes(`<loc>${siteUrl}/en/</loc>`), "sitemap: missing en home");
 assert(!sitemap.includes("/terms"), "sitemap: noindex terms page must not be listed");
 assert(!sitemap.includes("/copyright"), "sitemap: noindex copyright page must not be listed");
+
+const manifestFile = join(DIST_DIR, "site.webmanifest");
+assert(existsSync(manifestFile), "site.webmanifest is missing");
+const manifest = JSON.parse(readFileSync(manifestFile, "utf8"));
+assert(manifest.name && manifest.short_name && manifest.start_url === "/", "manifest: missing required app metadata");
+
+const maxAssetBytes = 800 * 1024;
+for (const asset of readdirSync(join(DIST_DIR, "assets"))) {
+  const size = statSync(join(DIST_DIR, "assets", asset)).size;
+  assert(size <= maxAssetBytes, `asset budget exceeded: ${asset} is ${size} bytes`);
+}
+
+const vercelConfig = JSON.parse(readFileSync("vercel.json", "utf8"));
+for (const source of ["/en", "/terms/", "/en/terms/", "/copyright/", "/en/copyright/"]) {
+  assert(vercelConfig.redirects?.some((redirect) => redirect.source === source && redirect.permanent === true), `vercel: missing permanent redirect for ${source}`);
+}
+for (const source of ["/terms", "/en/terms", "/copyright", "/en/copyright"]) {
+  assert(
+    vercelConfig.headers?.some((entry) => entry.source === source && entry.headers.some((header) => header.key === "X-Robots-Tag" && header.value === "noindex, follow")),
+    `vercel: missing X-Robots-Tag for ${source}`,
+  );
+}
 
 console.log(`SEO validation passed for ${pageEntries.length} generated pages.`);

@@ -34,6 +34,82 @@
           "value": "public, max-age=3600, s-maxage=3600"
         }
       ]
+    },
+    {
+      "source": "/site.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    },
+    {
+      "source": "/terms",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/en/terms",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/copyright",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/en/copyright",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/en",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/terms/",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/en/terms/",
+      "destination": "/en/terms",
+      "permanent": true
+    },
+    {
+      "source": "/copyright/",
+      "destination": "/copyright",
+      "permanent": true
+    },
+    {
+      "source": "/en/copyright/",
+      "destination": "/en/copyright",
+      "permanent": true
     }
   ],
   "rewrites": [

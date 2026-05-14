@@ -4,7 +4,7 @@ import shina24Logo from "@/assets/shina24-logo.png";
 import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
 import psgekLogo from "@/assets/psgek-logo.png";
-import katkovaLogo from "@/assets/katkova-logo.png";
+import katkovaLogo from "@/assets/katkova-logo.svg";
 import gtanksLogo from "@/assets/gtanks-logo.png";
 import cybertankzLogo from "@/assets/cybertankz-logo.png";
 import tankixLogo from "@/assets/tankix-logo.png";
@@ -129,6 +129,8 @@ const ProjectCard = ({
           <img
             src={image}
             alt={title}
+            width="160"
+            height="112"
             loading="lazy"
             decoding="async"
             className="h-28 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
@@ -230,6 +232,8 @@ const PairedProjectCard = () => {
               <img
                 src={pairedImages[project.title]}
                 alt={project.title}
+                width="144"
+                height="96"
                 loading="lazy"
                 decoding="async"
                 className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
