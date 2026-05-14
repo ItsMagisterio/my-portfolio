@@ -23,14 +23,13 @@ const Navbar = () => {
     { href: "#about", label: t.nav.about },
     { href: "#skills", label: t.nav.skills },
     { href: "#projects", label: t.nav.projects },
-    { href: "/pc-business", label: t.nav.pcBusiness, isExternal: true, disabled: true },
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
       <div
         className={cn(
-          "glass-pill rounded-full transition-all duration-500 w-full max-w-2xl",
+          "glass-pill rounded-full transition-all duration-500 w-full max-w-xl",
           isScrolled ? "shadow-lg" : ""
         )}
       >
@@ -46,13 +45,8 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.disabled ? undefined : link.href}
-                className={cn(
-                  "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                  link.disabled
-                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/60 dark:hover:bg-white/10"
-                )}
+                href={link.href}
+                className="px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/60 dark:hover:bg-white/10"
               >
                 {link.label}
               </a>
@@ -61,7 +55,6 @@ const Navbar = () => {
 
           {/* Right side controls */}
           <div className="hidden md:flex items-center gap-2">
-            {/* Language toggle */}
             <button
               data-testid="button-lang-toggle"
               onClick={() => setLang(lang === "ru" ? "en" : "ru")}
@@ -71,7 +64,6 @@ const Navbar = () => {
               {lang.toUpperCase()}
             </button>
 
-            {/* Theme toggle */}
             <button
               data-testid="button-theme-toggle"
               onClick={toggleTheme}
@@ -80,7 +72,6 @@ const Navbar = () => {
             >
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-
           </div>
 
           {/* Mobile menu button */}
@@ -100,14 +91,9 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.disabled ? undefined : link.href}
-                onClick={() => !link.disabled && setIsMobileMenuOpen(false)}
-                className={cn(
-                  "px-4 py-2.5 rounded-2xl text-sm font-medium transition-all",
-                  link.disabled
-                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-gray-100"
-                )}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-4 py-2.5 rounded-2xl text-sm font-medium transition-all text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-gray-100"
               >
                 {link.label}
               </a>

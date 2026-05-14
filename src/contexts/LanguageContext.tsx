@@ -8,7 +8,6 @@ const translations = {
       about: "Обо мне",
       skills: "Навыки",
       projects: "Проекты",
-      pcBusiness: "ПК Бизнес",
     },
     hero: {
       openTo: "Открыт к новым проектам",
@@ -152,7 +151,6 @@ const translations = {
       about: "About",
       skills: "Skills",
       projects: "Projects",
-      pcBusiness: "PC Business",
     },
     hero: {
       openTo: "Open to new projects",
