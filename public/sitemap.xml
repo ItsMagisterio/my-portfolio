@@ -3,79 +3,24 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- ═══ MAIN PAGE ═══ -->
+  <!-- Главная страница -->
   <url>
     <loc>https://magister1o-portfolio.vercel.app/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="ru-BY" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://magister1o-portfolio.vercel.app/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="pl" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://magister1o-portfolio.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="be" href="https://magister1o-portfolio.vercel.app/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/" />
     <image:image>
       <image:loc>https://magister1o-portfolio.vercel.app/og-image.png</image:loc>
-      <image:title>Богдан Вавренчук (magister1o) — Разработка сайтов Брест, Беларусь</image:title>
-      <image:caption>Full-Stack разработчик из Бреста — разработка сайтов, веб-приложений, SEO под ключ</image:caption>
+      <image:title>Богдан Вавренчук — Full-Stack разработчик, Брест, Беларусь</image:title>
+      <image:caption>Портфолио Full-Stack разработчика из Бреста — сайты, веб-приложения, SEO</image:caption>
       <image:geo_location>Брест, Беларусь</image:geo_location>
     </image:image>
-    <image:image>
-      <image:loc>https://magister1o-portfolio.vercel.app/logo-dark.jpg</image:loc>
-      <image:title>magister1o — Богдан Вавренчук, разработчик Брест</image:title>
-      <image:caption>magister1o — Middle Full-Stack Developer, Брест, Беларусь</image:caption>
-    </image:image>
   </url>
 
-  <!-- ═══ ABOUT SECTION ═══ -->
-  <url>
-    <loc>https://magister1o-portfolio.vercel.app/#about</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://magister1o-portfolio.vercel.app/#about" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://magister1o-portfolio.vercel.app/#about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/#about" />
-  </url>
-
-  <!-- ═══ SKILLS SECTION ═══ -->
-  <url>
-    <loc>https://magister1o-portfolio.vercel.app/#skills</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://magister1o-portfolio.vercel.app/#skills" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://magister1o-portfolio.vercel.app/#skills" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/#skills" />
-  </url>
-
-  <!-- ═══ PROJECTS SECTION ═══ -->
-  <url>
-    <loc>https://magister1o-portfolio.vercel.app/#projects</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://magister1o-portfolio.vercel.app/#projects" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://magister1o-portfolio.vercel.app/#projects" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/#projects" />
-  </url>
-
-  <!-- ═══ CONTACT SECTION ═══ -->
-  <url>
-    <loc>https://magister1o-portfolio.vercel.app/#contact</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://magister1o-portfolio.vercel.app/#contact" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://magister1o-portfolio.vercel.app/#contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/#contact" />
-  </url>
-
-  <!-- ═══ TERMS OF USE ═══ -->
+  <!-- Условия использования -->
   <url>
     <loc>https://magister1o-portfolio.vercel.app/terms</loc>
     <lastmod>2026-05-14</lastmod>
@@ -86,7 +31,7 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://magister1o-portfolio.vercel.app/terms" />
   </url>
 
-  <!-- ═══ COPYRIGHT POLICY ═══ -->
+  <!-- Политика авторских прав -->
   <url>
     <loc>https://magister1o-portfolio.vercel.app/copyright</loc>
     <lastmod>2026-05-14</lastmod>

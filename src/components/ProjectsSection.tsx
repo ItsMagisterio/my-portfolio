@@ -127,6 +127,8 @@ const ProjectCard = ({
           <img
             src={image}
             alt={title}
+            loading="lazy"
+            decoding="async"
             className="h-28 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
@@ -226,6 +228,8 @@ const PairedProjectCard = () => {
               <img
                 src={pairedImages[project.title]}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
               />
               <div

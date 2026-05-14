@@ -12,6 +12,7 @@ const translations = {
     hero: {
       openTo: "Открыт к новым проектам",
       name: "Богдан",
+      h1Suffix: " Вавренчук — Full-Stack разработчик сайтов в Бресте",
       subtitle: "Middle Full-Stack Developer",
       tagline: "Проектирую и реализую сложные продукты с нуля.\nКоммерческие результаты — не обещания, а факты.",
       cta: "Обсудить проект",
@@ -157,6 +158,7 @@ const translations = {
     hero: {
       openTo: "Open to new projects",
       name: "Bogdan",
+      h1Suffix: " Vavrenchuk — Full-Stack Web Developer in Brest",
       subtitle: "Middle Full-Stack Developer",
       tagline: "I design and build complex products from scratch.\nCommercial results — not promises, but facts.",
       cta: "Discuss a project",

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Home, ArrowLeft } from "lucide-react";
@@ -30,48 +31,55 @@ const NotFound = () => {
   }[lang];
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 bg-background">
-      <div className="aurora-orb w-[600px] h-[600px] bg-gray-200 dark:bg-zinc-800 top-[-20%] left-[-20%] opacity-50 dark:opacity-15" />
-      <div className="aurora-orb w-[400px] h-[400px] bg-slate-200 dark:bg-slate-800 bottom-[-10%] right-[-10%] opacity-35 dark:opacity-10" style={{ animationDelay: "5s" }} />
+    <>
+      <Helmet>
+        <title>{lang === "ru" ? "404 — Страница не найдена | magister1o" : "404 — Page not found | magister1o"}</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
-      <div className="relative z-10 w-full max-w-md text-center">
-        <div className="glass-lg rounded-3xl p-10 flex flex-col items-center gap-6">
-          <div className="text-[7rem] font-extrabold leading-none tracking-tighter text-gray-900 dark:text-gray-100 select-none">
-            {text.code}
-          </div>
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 bg-background">
+        <div className="aurora-orb w-[600px] h-[600px] bg-gray-200 dark:bg-zinc-800 top-[-20%] left-[-20%] opacity-50 dark:opacity-15" />
+        <div className="aurora-orb w-[400px] h-[400px] bg-slate-200 dark:bg-slate-800 bottom-[-10%] right-[-10%] opacity-35 dark:opacity-10" style={{ animationDelay: "5s" }} />
 
-          <div className="space-y-2">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              {text.title}
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {text.desc}
+        <div className="relative z-10 w-full max-w-md text-center">
+          <div className="glass-lg rounded-3xl p-10 flex flex-col items-center gap-6">
+            <div className="text-[7rem] font-extrabold leading-none tracking-tighter text-gray-900 dark:text-gray-100 select-none">
+              {text.code}
+            </div>
+
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                {text.title}
+              </h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {text.desc}
+              </p>
+            </div>
+
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-mono bg-black/5 dark:bg-white/5 px-3 py-1.5 rounded-lg break-all">
+              {location.pathname}
             </p>
-          </div>
 
-          <p className="text-xs text-gray-400 dark:text-gray-500 font-mono bg-black/5 dark:bg-white/5 px-3 py-1.5 rounded-lg break-all">
-            {location.pathname}
-          </p>
-
-          <div className="flex items-center gap-3 w-full">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10 border border-black/10 dark:border-white/10"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              {text.back}
-            </button>
-            <button
-              onClick={() => navigate("/")}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:opacity-90 transition-all duration-200"
-            >
-              <Home className="w-4 h-4" />
-              {text.home}
-            </button>
+            <div className="flex items-center gap-3 w-full">
+              <button
+                onClick={() => navigate(-1)}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10 border border-black/10 dark:border-white/10"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                {text.back}
+              </button>
+              <button
+                onClick={() => navigate("/")}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:opacity-90 transition-all duration-200"
+              >
+                <Home className="w-4 h-4" />
+                {text.home}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

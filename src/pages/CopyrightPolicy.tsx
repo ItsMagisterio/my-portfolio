@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
@@ -15,6 +16,11 @@ const CopyrightPolicy = () => {
   const { lang } = useLang();
 
   const isRu = lang === "ru";
+
+  const helmetTitle = isRu ? "Политика авторских прав — magister1o" : "Copyright Policy — magister1o";
+  const helmetDesc = isRu
+    ? "Политика авторских прав сайта-портфолио Богдана Вавренчука (magister1o) — Full-Stack разработчика из Бреста, Беларусь."
+    : "Copyright Policy of the portfolio website of Bogdan Vavrenchuk (magister1o) — Full-Stack developer from Brest, Belarus.";
 
   const intro = isRu ? (
     <>
@@ -129,6 +135,13 @@ const CopyrightPolicy = () => {
     : "By continuing to use the website, the user confirms full agreement with these terms.";
 
   return (
+    <>
+      <Helmet>
+        <title>{helmetTitle}</title>
+        <meta name="description" content={helmetDesc} />
+        <link rel="canonical" href="https://magister1o-portfolio.vercel.app/copyright" />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
     <div className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
       <div className="aurora-orb w-[500px] h-[500px] bg-gray-200 dark:bg-zinc-800 top-[-10%] left-[-10%] opacity-40 dark:opacity-10" />
       <div className="container max-w-3xl mx-auto relative z-10">
@@ -164,6 +177,7 @@ const CopyrightPolicy = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
