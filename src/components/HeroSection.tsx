@@ -7,7 +7,7 @@ const HeroSection = () => {
   const stats = t.hero.stats;
 
   return (
-    <section id="hero" aria-label="Главная — Богдан Ваурянчук, Full-Stack Developer" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-24">
+    <section id="hero" aria-label="Главная — Богдан Вавренчук, Full-Stack Developer" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-24">
       <div className="aurora-orb w-[700px] h-[700px] bg-gray-200 dark:bg-zinc-800 top-[-15%] left-[-15%] opacity-50 dark:opacity-15" />
       <div className="aurora-orb w-[500px] h-[500px] bg-slate-200 dark:bg-slate-800 top-[30%] right-[-10%] opacity-35 dark:opacity-10" style={{ animationDelay: "5s" }} />
       <div className="aurora-orb w-[400px] h-[400px] bg-zinc-100 dark:bg-zinc-900 bottom-[0%] left-[10%] opacity-50 dark:opacity-15" style={{ animationDelay: "9s" }} />
@@ -23,7 +23,7 @@ const HeroSection = () => {
                 boxShadow: "0 24px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08)",
               }}
             >
-              <img src={avatar} alt="Богдан Ваурянчук" className="w-full h-full object-cover" />
+              <img src={avatar} alt="Богдан Вавренчук" className="w-full h-full object-cover" />
             </div>
           </div>
 
