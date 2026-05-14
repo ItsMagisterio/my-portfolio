@@ -26,18 +26,21 @@ const Footer = () => {
                 { href: "https://github.com/ItsMagisterio", icon: Github, label: "GitHub", testId: "link-github" },
                 { href: "https://t.me/magister1o", icon: Send, label: "Telegram", testId: "link-telegram" },
                 { href: "https://discord.com/users/magister1o", icon: SiDiscord, label: "Discord", testId: "link-discord" },
-                { href: "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/", icon: SiLinkedin, label: "LinkedIn", testId: "link-linkedin" },
+                { href: "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/", icon: SiLinkedin, label: "LinkedIn", testId: "link-linkedin", disabled: true },
                 { href: "https://www.twitch.tv/magister1o", icon: SiTwitch, label: "Twitch", testId: "link-twitch" },
                 { href: "https://steamcommunity.com/id/magister1o/", icon: SiSteam, label: "Steam", testId: "link-steam" },
-              ].map(({ href, icon: Icon, label, testId }) => (
+              ].map(({ href, icon: Icon, label, testId, disabled }) => (
                 <a
                   key={testId}
-                  href={href}
-                  target="_blank"
+                  href={disabled ? undefined : href}
+                  target={disabled ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   title={label}
                   data-testid={testId}
-                  className="p-2.5 rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10"
+                  className={disabled
+                    ? "p-2.5 rounded-2xl text-gray-300 dark:text-gray-600 cursor-not-allowed transition-all duration-200"
+                    : "p-2.5 rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10"
+                  }
                 >
                   <Icon className="w-5 h-5" />
                 </a>
