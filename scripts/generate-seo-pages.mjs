@@ -85,7 +85,7 @@ const legalSeo = {
   },
 };
 
-const baseHeadLinks = (assetTags) => `
+const baseHeadLinks = () => `
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Богдан Вавренчук (magister1o)" />
@@ -104,8 +104,7 @@ const baseHeadLinks = (assetTags) => `
     <link rel="dns-prefetch" href="https://www.linkedin.com" />
     <link rel="icon" type="image/jpeg" href="/logo-dark.jpg" />
     <link rel="apple-touch-icon" href="/logo-dark.jpg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-${assetTags}`;
+    <link rel="shortcut icon" href="/favicon.ico" />`;
 
 const metaTag = (name, content) => `    <meta name="${name}" content="${escapeHtml(content)}" />`;
 const propertyTag = (property, content) => `    <meta property="${property}" content="${escapeHtml(content)}" />`;
@@ -279,6 +278,7 @@ const buildHead = ({ lang, title, description, canonicalPath, robots = DEFAULT_R
   const locale = lang === "ru" ? "ru_RU" : "en_US";
   const alternateLocale = lang === "ru" ? "en_US" : "ru_RU";
   return `<head>
+${baseHeadLinks()}
     <title>${escapeHtml(title)}</title>
 ${metaTag("description", description)}
 ${metaTag("robots", robots)}
@@ -303,7 +303,7 @@ ${metaTag("twitter:description", description)}
 ${metaTag("twitter:image", OG_IMAGE)}
 ${metaTag("twitter:image:alt", lang === "ru" ? homeSeo.ru.imageAlt : homeSeo.en.imageAlt)}
 ${schemas.map(jsonLd).join("\n")}
-${baseHeadLinks(assetTags)}
+${assetTags}
   </head>`;
 };
 
@@ -342,7 +342,7 @@ const legalNoscript = (key, lang) => {
 };
 
 const template = readFileSync(join(DIST_DIR, "index.html"), "utf8");
-const assetTags = [...template.matchAll(/\n\s*<(?:script|link)[^>]+(?:\/?>|><\/script>)/g)]
+const assetTags = [...template.matchAll(/\n\s*(?:<script\b[^>]*><\/script>|<link\b[^>]*>)/g)]
   .map((match) => match[0])
   .filter((tag) => tag.includes("/assets/"))
   .join("\n");
