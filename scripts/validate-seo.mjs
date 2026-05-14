@@ -91,6 +91,12 @@ for (const asset of readdirSync(join(DIST_DIR, "assets"))) {
   assert(size <= maxAssetBytes, `asset budget exceeded: ${asset} is ${size} bytes`);
 }
 
+for (const asset of readdirSync(join(DIST_DIR, "assets")).filter((asset) => asset.endsWith(".svg"))) {
+  const svg = readFileSync(join(DIST_DIR, "assets", asset), "utf8").trimStart();
+  assert(svg.startsWith("<svg"), `svg asset is not a valid SVG document: ${asset}`);
+  assert(!/<html[\s>]/i.test(svg), `svg asset unexpectedly contains HTML: ${asset}`);
+}
+
 const vercelConfig = JSON.parse(readFileSync("vercel.json", "utf8"));
 for (const source of ["/en", "/terms/", "/en/terms/", "/copyright/", "/en/copyright/"]) {
   assert(vercelConfig.redirects?.some((redirect) => redirect.source === source && redirect.permanent === true), `vercel: missing permanent redirect for ${source}`);

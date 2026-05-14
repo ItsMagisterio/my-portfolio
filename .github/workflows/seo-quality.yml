@@ -1,0 +1,39 @@
+name: SEO quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  seo-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static SEO output
+        run: npm run build
+
+      - name: Validate generated SEO artifacts
+        run: npm run test:seo
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run Lighthouse CI
+        run: npx @lhci/cli@latest autorun --config=./lighthouserc.cjs

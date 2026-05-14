@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "postbuild": "node scripts/generate-seo-pages.mjs",
-    "test:seo": "node scripts/validate-seo.mjs"
+    "test:seo": "node scripts/validate-seo.mjs",
+    "audit:lighthouse": "npx @lhci/cli@latest autorun --config=./lighthouserc.cjs"
   },
   "engines": {
     "node": "24.x"
