@@ -1,11 +1,17 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const SITE_URL = "https://magister1o-portfolio.vercel.app";
 const DIST_DIR = "dist";
-const BUILD_DATE = "2026-05-14";
-const DEFAULT_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
-const OG_IMAGE = `${SITE_URL}/og-image.png`;
+const seoData = JSON.parse(readFileSync("src/lib/seo-data.json", "utf8"));
+const SITE_URL = seoData.siteUrl;
+const BUILD_DATE = seoData.buildDate;
+const DEFAULT_ROBOTS = seoData.defaultRobots;
+const OG_IMAGE = `${SITE_URL}${seoData.ogImagePath}`;
+const homeSeo = seoData.pages.home;
+const legalSeo = {
+  terms: seoData.pages.terms,
+  copyright: seoData.pages.copyright,
+};
 
 const escapeHtml = (value) =>
   String(value)
@@ -31,66 +37,13 @@ const alternates = (path = "/") => [
   { hreflang: "x-default", href: localizedPath("ru", path) },
 ];
 
-const homeSeo = {
-  ru: {
-    title: "Богдан Вавренчук — Full-Stack разработчик | Брест, Беларусь",
-    description:
-      "Middle Full-Stack разработчик из Бреста с 4 годами коммерческого опыта. Разработка сайтов, веб-приложений и мобильных приложений под ключ. Java, React, TypeScript, Kotlin, C#, PHP, Python.",
-    imageAlt: "Богдан Вавренчук — Full-Stack разработчик, Брест, Беларусь",
-    siteName: "magister1o — Портфолио",
-  },
-  en: {
-    title: "Bogdan Vavrenchuk — Full-Stack Developer | Brest, Belarus",
-    description:
-      "Middle Full-Stack developer from Brest with 4 years of commercial experience. Turnkey development of websites, web apps and mobile apps. Java, React, TypeScript, Kotlin, C#, PHP, Python.",
-    imageAlt: "Bogdan Vavrenchuk — Full-Stack Developer, Brest, Belarus",
-    siteName: "magister1o — Portfolio",
-  },
-};
-
-const legalSeo = {
-  terms: {
-    basePath: "/terms",
-    ru: {
-      title: "Условия использования — magister1o",
-      description:
-        "Условия использования сайта-портфолио Богдана Вавренчука (magister1o) — Full-Stack разработчика из Бреста, Беларусь.",
-      heading: "Условия использования",
-      intro: "Правила использования сайта-портфолио, исходного кода, дизайна, текстов и материалов проекта.",
-    },
-    en: {
-      title: "Terms of Use — magister1o",
-      description:
-        "Terms of Use for the portfolio website of Bogdan Vavrenchuk (magister1o) — Full-Stack developer from Brest, Belarus.",
-      heading: "Terms of Use",
-      intro: "Rules for using the portfolio website, source code, design, texts, and project materials.",
-    },
-  },
-  copyright: {
-    basePath: "/copyright",
-    ru: {
-      title: "Политика авторских прав — magister1o",
-      description:
-        "Политика авторских прав сайта-портфолио Богдана Вавренчука (magister1o) — Full-Stack разработчика из Бреста, Беларусь.",
-      heading: "Политика авторских прав",
-      intro: "Информация об авторских правах на сайт, исходный код, дизайн, тексты и визуальные материалы.",
-    },
-    en: {
-      title: "Copyright Policy — magister1o",
-      description:
-        "Copyright Policy of the portfolio website of Bogdan Vavrenchuk (magister1o) — Full-Stack developer from Brest, Belarus.",
-      heading: "Copyright Policy",
-      intro: "Information about copyright for the website, source code, design, texts, and visual materials.",
-    },
-  },
-};
-
 const baseHeadLinks = () => `
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Богдан Вавренчук (magister1o)" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="application-name" content="magister1o — Portfolio" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="google-site-verification" content="412f0887e4608c8b" />
     <meta name="yandex-verification" content="1530d5ee6e11bcff" />
     <meta name="geo.region" content="BY-BR" />
@@ -104,7 +57,11 @@ const baseHeadLinks = () => `
     <link rel="dns-prefetch" href="https://www.linkedin.com" />
     <link rel="icon" type="image/jpeg" href="/logo-dark.jpg" />
     <link rel="apple-touch-icon" href="/logo-dark.jpg" />
-    <link rel="shortcut icon" href="/favicon.ico" />`;
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="magister1o" />`;
 
 const metaTag = (name, content) => `    <meta name="${name}" content="${escapeHtml(content)}" />`;
 const propertyTag = (property, content) => `    <meta property="${property}" content="${escapeHtml(content)}" />`;
@@ -273,7 +230,7 @@ const legalSchemas = (key, lang) => {
   ];
 };
 
-const buildHead = ({ lang, title, description, canonicalPath, robots = DEFAULT_ROBOTS, alternatesFor = "/", type = "website", schemas = [], assetTags }) => {
+const buildHead = ({ lang, title, description, canonicalPath, robots = DEFAULT_ROBOTS, alternatesFor = "/", type = "website", schemas = [], assetTags, lcpImagePreload = "" }) => {
   const canonical = absoluteUrl(canonicalPath);
   const locale = lang === "ru" ? "ru_RU" : "en_US";
   const alternateLocale = lang === "ru" ? "en_US" : "ru_RU";
@@ -303,6 +260,7 @@ ${metaTag("twitter:description", description)}
 ${metaTag("twitter:image", OG_IMAGE)}
 ${metaTag("twitter:image:alt", lang === "ru" ? homeSeo.ru.imageAlt : homeSeo.en.imageAlt)}
 ${schemas.map(jsonLd).join("\n")}
+${lcpImagePreload}
 ${assetTags}
   </head>`;
 };
@@ -346,6 +304,10 @@ const assetTags = [...template.matchAll(/\n\s*(?:<script\b[^>]*><\/script>|<link
   .map((match) => match[0])
   .filter((tag) => tag.includes("/assets/"))
   .join("\n");
+const avatarAsset = readdirSync(join(DIST_DIR, "assets")).find((asset) => /^avatar-.*\.png$/.test(asset));
+const lcpImagePreload = avatarAsset
+  ? `    <link rel="preload" as="image" href="/assets/${avatarAsset}" fetchpriority="high" />`
+  : "";
 const body = template.match(/<body>[\s\S]*<\/body>/)?.[0];
 if (!body) throw new Error("Could not find <body> in dist/index.html");
 
@@ -354,6 +316,7 @@ const renderPage = ({ outputPath, lang, head, noscript }) => {
   const filePath = join(DIST_DIR, outputPath);
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, html);
+  return html;
 };
 
 for (const lang of ["ru", "en"]) {
@@ -368,6 +331,7 @@ for (const lang of ["ru", "en"]) {
       alternatesFor: "/",
       schemas: homeSchemas(lang),
       assetTags,
+      lcpImagePreload,
     }),
     noscript: homeNoscript(lang),
   });
@@ -378,7 +342,7 @@ for (const key of Object.keys(legalSeo)) {
     const page = legalSeo[key];
     const seo = page[lang];
     const canonicalPath = localizedPath(lang, page.basePath);
-    renderPage({
+    const html = renderPage({
       outputPath: canonicalPath.replace(/^\//, "") + (canonicalPath.endsWith("/") ? "index.html" : "/index.html"),
       lang,
       head: buildHead({
@@ -394,6 +358,10 @@ for (const key of Object.keys(legalSeo)) {
       }),
       noscript: legalNoscript(key, lang),
     });
+
+    const cleanUrlAlias = join(DIST_DIR, `${canonicalPath.replace(/^\//, "")}.html`);
+    mkdirSync(dirname(cleanUrlAlias), { recursive: true });
+    writeFileSync(cleanUrlAlias, html);
   }
 }
 

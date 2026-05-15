@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "postbuild": "node scripts/generate-seo-pages.mjs"
+    "postbuild": "node scripts/generate-seo-pages.mjs",
+    "test:seo": "node scripts/validate-seo.mjs"
   },
   "engines": {
     "node": "24.x"

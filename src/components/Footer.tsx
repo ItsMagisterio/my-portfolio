@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo and name */}
             <div className="flex items-center gap-3">
-              <img src={logoDark} alt="magister1o logo" className="w-10 h-10 rounded-2xl" />
+              <img src={logoDark} alt="magister1o logo" width="40" height="40" className="w-10 h-10 rounded-2xl" />
               <div>
                 <p className="font-bold text-gray-900 dark:text-gray-100">magister1o</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{t.footer.role}</p>

@@ -23,7 +23,7 @@ const HeroSection = () => {
                 boxShadow: "0 24px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08)",
               }}
             >
-              <img src={avatar} alt="Богдан Вавренчук — Full-Stack разработчик, Брест" className="w-full h-full object-cover" fetchPriority="high" decoding="sync" />
+              <img src={avatar} alt="Богдан Вавренчук — Full-Stack разработчик, Брест" width="208" height="208" className="w-full h-full object-cover" fetchPriority="high" decoding="sync" />
             </div>
           </div>
 
