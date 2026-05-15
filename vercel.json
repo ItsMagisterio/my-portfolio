@@ -131,10 +131,6 @@
   ],
   "rewrites": [
     {
-      "source": "/en",
-      "destination": "/en/index.html"
-    },
-    {
       "source": "/en/",
       "destination": "/en/index.html"
     },
@@ -143,15 +139,7 @@
       "destination": "/terms/index.html"
     },
     {
-      "source": "/terms/",
-      "destination": "/terms/index.html"
-    },
-    {
       "source": "/en/terms",
-      "destination": "/en/terms/index.html"
-    },
-    {
-      "source": "/en/terms/",
       "destination": "/en/terms/index.html"
     },
     {
@@ -159,15 +147,7 @@
       "destination": "/copyright/index.html"
     },
     {
-      "source": "/copyright/",
-      "destination": "/copyright/index.html"
-    },
-    {
       "source": "/en/copyright",
-      "destination": "/en/copyright/index.html"
-    },
-    {
-      "source": "/en/copyright/",
       "destination": "/en/copyright/index.html"
     },
     {
