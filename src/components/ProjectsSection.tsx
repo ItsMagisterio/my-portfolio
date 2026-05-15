@@ -4,7 +4,7 @@ import shina24Logo from "@/assets/shina24-logo.png";
 import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
 import psgekLogo from "@/assets/psgek-logo.png";
-import katkovaLogo from "@/assets/katkova-logo.svg";
+import katkovaLogo from "@/assets/katkova-logo.png";
 import gtanksLogo from "@/assets/gtanks-logo.png";
 import cybertankzLogo from "@/assets/cybertankz-logo.png";
 import tankixLogo from "@/assets/tankix-logo.png";
