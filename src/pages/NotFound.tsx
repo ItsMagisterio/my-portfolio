@@ -1,6 +1,5 @@
 import Seo from "@/components/Seo";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Home, ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
@@ -8,10 +7,6 @@ const NotFound = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { lang } = useLang();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
 
   const text = {
     ru: {
