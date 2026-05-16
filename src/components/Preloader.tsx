@@ -43,6 +43,11 @@ const Preloader = () => {
   const [visibleLines, setVisibleLines] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPhase("done");
+      return;
+    }
+
     const interval = setInterval(() => {
       setVisibleLines((n) => {
         if (n >= JAVA_LINES.length) { clearInterval(interval); return n; }
@@ -139,7 +144,10 @@ const Preloader = () => {
       >
         <img
           src={logoDark}
-          alt="logo"
+          alt="Логотип magister1o"
+          width={72}
+          height={72}
+          decoding="async"
           style={{ width: 72, height: 72, borderRadius: 18, objectFit: "cover" }}
         />
         <span

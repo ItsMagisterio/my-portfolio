@@ -10,11 +10,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs"
   },
-"engines": {
-  "node": "24.x"
-},
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "vite": "^5.4.19",
     "@hookform/resolvers": "^3.10.0",

@@ -1,0 +1,59 @@
+{
+  "siteUrl": "https://magister1o-portfolio.vercel.app",
+  "siteName": "magister1o — portfolio",
+  "defaultImage": "/og-image.png",
+  "author": "Богдан Вавренчук",
+  "profiles": [
+    "https://github.com/ItsMagisterio",
+    "https://t.me/magister1o",
+    "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/",
+    "https://www.twitch.tv/magister1o"
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "lastmod": "2026-05-16",
+      "changefreq": "monthly",
+      "priority": "1.0",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "title": {
+        "ru": "Богдан Вавренчук (magister1o) — Full-Stack Developer",
+        "en": "Bogdan Vavrenchuk (magister1o) — Full-Stack Developer"
+      },
+      "description": {
+        "ru": "Портфолио Богдана Вавренчука: Full-Stack разработка на React, TypeScript, Java, Kotlin, C#, PHP и Python, коммерческие проекты и контакты.",
+        "en": "Portfolio of Bogdan Vavrenchuk: full-stack development with React, TypeScript, Java, Kotlin, C#, PHP and Python, commercial projects and contacts."
+      }
+    },
+    {
+      "path": "/terms",
+      "lastmod": "2026-05-16",
+      "changefreq": "yearly",
+      "priority": "0.3",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "title": {
+        "ru": "Условия использования сайта — magister1o",
+        "en": "Terms of Use — magister1o"
+      },
+      "description": {
+        "ru": "Условия использования портфолио magister1o: правила просмотра материалов, ограничения копирования и контактная информация автора.",
+        "en": "Terms for using the magister1o portfolio: viewing rules, copying restrictions and author contact information."
+      }
+    },
+    {
+      "path": "/copyright",
+      "lastmod": "2026-05-16",
+      "changefreq": "yearly",
+      "priority": "0.3",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "title": {
+        "ru": "Политика авторских прав — magister1o",
+        "en": "Copyright Policy — magister1o"
+      },
+      "description": {
+        "ru": "Политика авторских прав портфолио magister1o: охрана дизайна, текстов, кода и порядок реагирования на нарушения.",
+        "en": "Copyright policy for the magister1o portfolio: protection of design, texts, code and enforcement process."
+      }
+    }
+  ]
+}

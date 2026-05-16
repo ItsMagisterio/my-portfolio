@@ -7,7 +7,7 @@ const AboutSection = () => {
   const { t } = useLang();
 
   return (
-    <section id="about" aria-label="О разработчике" className="py-24 px-4 relative">
+    <section id="about" aria-label="О разработчике" className="py-24 px-4 relative content-auto">
       <div className="container max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">{t.about.eyebrow}</p>

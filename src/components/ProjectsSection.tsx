@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu } from "lucide-react";
+import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu, type LucideIcon } from "lucide-react";
 import shina24Logo from "@/assets/shina24-logo.png";
 import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
@@ -53,7 +53,9 @@ const projectStatuses = [
   { inDevelopment: true },
 ];
 
-const getStatusKey = (status: Record<string, any>): string | null => {
+type ProjectStatus = Record<string, boolean | string | undefined>;
+
+const getStatusKey = (status: ProjectStatus): string | null => {
   if (status.frozen) return "frozen";
   if (status.inDevelopment) return "inDevelopment";
   if (status.completed) return "completed";
@@ -91,8 +93,8 @@ const ProjectCard = ({
   description: string;
   tags: string[];
   image: string;
-  icon: any;
-  status: Record<string, any>;
+  icon: LucideIcon;
+  status: ProjectStatus;
   pinned?: boolean;
   github?: string;
   link?: string;
@@ -109,7 +111,7 @@ const ProjectCard = ({
   const isTankiTitle = title.toLowerCase().includes("tanki") || title.toLowerCase().includes("gtanks");
 
   return (
-    <div className={`glass-card rounded-3xl overflow-hidden group relative flex flex-col${className ? ` ${className}` : ""}`} style={style}>
+    <article className={`glass-card rounded-3xl overflow-hidden group relative flex flex-col${className ? ` ${className}` : ""}`} style={style}>
       {badgeStyle && badgeLabel && (
         <div
           className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-xs font-semibold"
@@ -126,7 +128,9 @@ const ProjectCard = ({
         {image ? (
           <img
             src={image}
-            alt={title}
+            alt={`Логотип проекта ${title}`}
+            loading="lazy"
+            decoding="async"
             className="h-28 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
@@ -151,6 +155,7 @@ const ProjectCard = ({
           {github && !isTankiTitle && (
             <a
               href={github}
+              aria-label={`Открыть исходный код проекта ${title} на GitHub`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors font-medium"
@@ -162,6 +167,7 @@ const ProjectCard = ({
           {link && (
             <a
               href={link}
+              aria-label={`Открыть сайт проекта ${title}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors font-medium"
@@ -190,7 +196,7 @@ const ProjectCard = ({
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -211,7 +217,7 @@ const PairedProjectCard = () => {
   const visibleSeo = seoExpanded ? seoWork : seoWork.slice(0, SEO_PREVIEW);
 
   return (
-    <div className="glass-card rounded-3xl overflow-hidden col-span-1 md:col-span-2 flex flex-col">
+    <article className="glass-card rounded-3xl overflow-hidden col-span-1 md:col-span-2 flex flex-col">
       {/* Top: two project halves side by side */}
       <div className="flex flex-col sm:flex-row">
         {projects.map((project, i) => (
@@ -225,7 +231,9 @@ const PairedProjectCard = () => {
             >
               <img
                 src={pairedImages[project.title]}
-                alt={project.title}
+                alt={`Логотип проекта ${project.name}`}
+                loading="lazy"
+                decoding="async"
                 className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
               />
               <div
@@ -249,6 +257,7 @@ const PairedProjectCard = () => {
 
               <a
                 href={project.link}
+                aria-label={`Открыть сайт проекта ${project.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors font-medium mb-3"
@@ -283,6 +292,9 @@ const PairedProjectCard = () => {
         ))}
         {techStack.length > STACK_PREVIEW && (
           <button
+            type="button"
+            aria-expanded={stackExpanded}
+            aria-label={stackExpanded ? "Свернуть стек технологий" : "Показать весь стек технологий"}
             onClick={() => setStackExpanded(!stackExpanded)}
             className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
           >
@@ -306,6 +318,9 @@ const PairedProjectCard = () => {
         ))}
         {seoWork.length > SEO_PREVIEW && (
           <button
+            type="button"
+            aria-expanded={seoExpanded}
+            aria-label={seoExpanded ? "Свернуть SEO-работы" : "Показать все SEO-работы"}
             onClick={() => setSeoExpanded(!seoExpanded)}
             className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors ml-0.5"
           >
@@ -317,7 +332,7 @@ const PairedProjectCard = () => {
           </button>
         )}
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -351,7 +366,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" aria-label="Портфолио и реализованные проекты" className="py-24 px-4 relative">
+    <section id="projects" aria-label="Портфолио и реализованные проекты" className="py-24 px-4 relative content-auto">
       <div className="aurora-orb w-[450px] h-[450px] bg-gray-200 dark:bg-zinc-800 top-[5%] left-[-8%] opacity-35 dark:opacity-10" />
       <div className="aurora-orb w-[400px] h-[400px] bg-slate-100 dark:bg-slate-900 bottom-[10%] right-[-5%] opacity-40 dark:opacity-10" style={{ animationDelay: "5s" }} />
 
@@ -415,6 +430,9 @@ const ProjectsSection = () => {
             style={{ opacity: buttonVisible ? 1 : 0, pointerEvents: buttonVisible ? "auto" : "none" }}
           >
             <button
+              type="button"
+              aria-expanded={showAll}
+              aria-label={showAll ? "Скрыть дополнительные проекты" : "Показать все проекты"}
               onClick={handleToggle}
               className="ios-button-glass inline-flex items-center gap-2 px-7 py-3 text-sm"
             >

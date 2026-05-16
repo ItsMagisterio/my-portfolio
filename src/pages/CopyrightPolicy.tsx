@@ -129,10 +129,12 @@ const CopyrightPolicy = () => {
     : "By continuing to use the website, the user confirms full agreement with these terms.";
 
   return (
-    <div className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
+    <main className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
       <div className="aurora-orb w-[500px] h-[500px] bg-gray-200 dark:bg-zinc-800 top-[-10%] left-[-10%] opacity-40 dark:opacity-10" />
       <div className="container max-w-3xl mx-auto relative z-10">
         <button
+          type="button"
+          aria-label={isRu ? "Вернуться на предыдущую страницу" : "Return to the previous page"}
           onClick={() => navigate(-1)}
           className="mb-8 inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
         >
@@ -140,7 +142,7 @@ const CopyrightPolicy = () => {
           {isRu ? "Назад" : "Back"}
         </button>
 
-        <div className="glass-lg rounded-3xl p-8 md:p-12">
+        <article className="glass-lg rounded-3xl p-8 md:p-12">
           <p className="text-xs text-gray-400 dark:text-gray-500 mb-2">
             {isRu ? "Последнее обновление: 14 мая 2026 года" : "Last updated: May 14, 2026"}
           </p>
@@ -161,9 +163,9 @@ const CopyrightPolicy = () => {
           <div className="mt-10 pt-6 border-t border-white/30 dark:border-white/10">
             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed italic">{outro}</p>
           </div>
-        </div>
+        </article>
       </div>
-    </div>
+    </main>
   );
 };
 

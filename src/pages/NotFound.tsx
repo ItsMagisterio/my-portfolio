@@ -30,7 +30,7 @@ const NotFound = () => {
   }[lang];
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 bg-background">
+    <main className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 bg-background">
       <div className="aurora-orb w-[600px] h-[600px] bg-gray-200 dark:bg-zinc-800 top-[-20%] left-[-20%] opacity-50 dark:opacity-15" />
       <div className="aurora-orb w-[400px] h-[400px] bg-slate-200 dark:bg-slate-800 bottom-[-10%] right-[-10%] opacity-35 dark:opacity-10" style={{ animationDelay: "5s" }} />
 
@@ -55,6 +55,8 @@ const NotFound = () => {
 
           <div className="flex items-center gap-3 w-full">
             <button
+              type="button"
+              aria-label={text.back}
               onClick={() => navigate(-1)}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10 border border-black/10 dark:border-white/10"
             >
@@ -62,6 +64,8 @@ const NotFound = () => {
               {text.back}
             </button>
             <button
+              type="button"
+              aria-label={text.home}
               onClick={() => navigate("/")}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:opacity-90 transition-all duration-200"
             >
@@ -71,7 +75,7 @@ const NotFound = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

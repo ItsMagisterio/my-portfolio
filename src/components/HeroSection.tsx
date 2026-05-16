@@ -23,7 +23,7 @@ const HeroSection = () => {
                 boxShadow: "0 24px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08)",
               }}
             >
-              <img src={avatar} alt="Богдан Вавренчук" className="w-full h-full object-cover" />
+              <img src={avatar} alt="Портрет Богдана Вавренчука, Full-Stack разработчика" width="208" height="208" loading="eager" decoding="async" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -74,6 +74,7 @@ const HeroSection = () => {
             >
               <a
                 href="https://t.me/magister1o"
+                aria-label="Связаться с Богданом Вавренчуком в Telegram"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ios-button-primary inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base"
@@ -83,6 +84,7 @@ const HeroSection = () => {
               </a>
               <a
                 href="https://github.com/ItsMagisterio"
+                aria-label="Открыть GitHub профиль Богдана Вавренчука"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ios-button-glass inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base"

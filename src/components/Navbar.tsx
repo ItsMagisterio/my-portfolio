@@ -26,17 +26,18 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+      <nav aria-label="Основная навигация" className="w-full max-w-xl">
       <div
         className={cn(
-          "glass-pill rounded-full transition-all duration-500 w-full max-w-xl",
+          "glass-pill rounded-full transition-all duration-500 w-full",
           isScrolled ? "shadow-lg" : ""
         )}
       >
         <div className="flex items-center justify-between px-5 h-14">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 shrink-0">
-            <img src={logoDark} alt="Logo" className="w-7 h-7 rounded-xl" />
+          <a href="/" aria-label="На главную страницу портфолио magister1o" className="flex items-center gap-2.5 shrink-0">
+            <img src={logoDark} alt="Логотип magister1o" width="28" height="28" className="w-7 h-7 rounded-xl" />
             <span className="font-bold text-base text-gray-800 dark:text-gray-200 tracking-tight">magister1o</span>
           </a>
 
@@ -56,7 +57,9 @@ const Navbar = () => {
           {/* Right side controls */}
           <div className="hidden md:flex items-center gap-2">
             <button
+              type="button"
               data-testid="button-lang-toggle"
+              aria-label={lang === "ru" ? "Switch interface language to English" : "Переключить язык интерфейса на русский"}
               onClick={() => setLang(lang === "ru" ? "en" : "ru")}
               className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/60 dark:hover:bg-white/10"
               style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -65,7 +68,9 @@ const Navbar = () => {
             </button>
 
             <button
+              type="button"
               data-testid="button-theme-toggle"
+              aria-label={isDark ? "Включить светлую тему" : "Включить тёмную тему"}
               onClick={toggleTheme}
               className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10"
               style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -76,6 +81,10 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
+            type="button"
+            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-full hover:bg-white/60 dark:hover:bg-white/10 transition-colors text-gray-700 dark:text-gray-300"
           >
@@ -86,7 +95,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-20 left-4 right-4 glass-pill rounded-3xl p-5 md:hidden">
+        <div id="mobile-navigation" className="absolute top-20 left-4 right-4 glass-pill rounded-3xl p-5 md:hidden">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
@@ -100,6 +109,8 @@ const Navbar = () => {
             ))}
             <div className="flex items-center gap-2 mt-1">
               <button
+                type="button"
+                aria-label={lang === "ru" ? "Switch interface language to English" : "Переключить язык интерфейса на русский"}
                 onClick={() => setLang(lang === "ru" ? "en" : "ru")}
                 className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 text-gray-600 dark:text-gray-400"
                 style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -107,6 +118,8 @@ const Navbar = () => {
                 {lang.toUpperCase()}
               </button>
               <button
+                type="button"
+                aria-label={isDark ? "Включить светлую тему" : "Включить тёмную тему"}
                 onClick={toggleTheme}
                 className="p-2 rounded-full text-gray-600 dark:text-gray-400 transition-all duration-200"
                 style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -117,7 +130,8 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </nav>
+      </nav>
+    </header>
   );
 };
 
