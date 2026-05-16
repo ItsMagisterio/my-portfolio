@@ -22,6 +22,7 @@ const Index = () => {
         description={seo.description}
         canonicalPath={canonicalPath}
         alternates={defaultAlternates("/")}
+        imageAlt={seo.imageAlt}
       />
 
       <div className="min-h-screen bg-background">

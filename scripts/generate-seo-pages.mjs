@@ -143,8 +143,105 @@ const portfolioItems = [
   ["PSGEK", "https://psgek.belarus.by/", "Призёрский проект конкурса «100 идей для Беларуси» — 3 место из 54 работ."],
 ];
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${SITE_URL}/#localbusiness`,
+  name: "Богдан Вавренчук — разработка сайтов",
+  alternateName: ["magister1o", "Web Developer Brest", "Bogdan Vavrenchuk"],
+  description:
+    "Разработка сайтов и веб-приложений под ключ. Full-Stack разработчик Богдан Вавренчук (magister1o). 4 года коммерческого опыта, реальные проекты для бизнеса.",
+  url: `${SITE_URL}/`,
+  image: OG_IMAGE,
+  founder: { "@id": `${SITE_URL}/#person` },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Брест",
+    addressRegion: "Брестская область",
+    addressCountry: "BY",
+    postalCode: "224000",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 52.0976,
+    longitude: 23.6843,
+  },
+  areaServed: [
+    { "@type": "City", name: "Брест" },
+    { "@type": "City", name: "Минск" },
+    { "@type": "Country", name: "Беларусь" },
+    { "@type": "Country", name: "Россия" },
+    { "@type": "Country", name: "Польша" },
+  ],
+  currenciesAccepted: "USD, EUR, BYN, RUB",
+  paymentAccepted: "Bank Transfer, PayPal, Cryptocurrency",
+  availableChannel: [
+    {
+      "@type": "ServiceChannel",
+      serviceUrl: "https://t.me/magister1o",
+      name: "Telegram",
+      availableLanguage: ["Russian", "English"],
+    },
+    {
+      "@type": "ServiceChannel",
+      serviceUrl: "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/",
+      name: "LinkedIn",
+      availableLanguage: ["Russian", "English"],
+    },
+  ],
+  sameAs: ["https://github.com/ItsMagisterio", "https://t.me/magister1o", "https://www.linkedin.com/in/bogdan-vauranchuk-50a642400/"],
+};
+
+const faqSchema = (lang) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: (lang === "ru"
+    ? [
+        [
+          "Кто такой Богдан Вавренчук (magister1o)?",
+          "Богдан Вавренчук (magister1o) — Middle Full-Stack Developer из Бреста, Беларусь. 4 года коммерческого опыта, проекты Katkova House, Shina24, Kondey и PSGEK.",
+        ],
+        [
+          "Какие технологии использует magister1o?",
+          "Java, Spring Boot, Kotlin, C#, TypeScript, React, Vite, PHP, Python, Node.js, MySQL, PostgreSQL, Docker и Tailwind CSS.",
+        ],
+        [
+          "Как заказать разработку сайта?",
+          "Напишите в Telegram @magister1o или LinkedIn, опишите задачу и получите оценку сроков и стоимости.",
+        ],
+        [
+          "Делаете ли вы SEO-оптимизацию?",
+          "Да: техническое SEO, JSON-LD, meta-теги, robots.txt, sitemap.xml, canonical, оптимизация LCP и индексации.",
+        ],
+      ]
+    : [
+        [
+          "Who is Bogdan Vavrenchuk (magister1o)?",
+          "Bogdan Vavrenchuk (magister1o) is a Middle Full-Stack Developer from Brest, Belarus with 4 years of commercial experience.",
+        ],
+        [
+          "Which technologies does magister1o use?",
+          "Java, Spring Boot, Kotlin, C#, TypeScript, React, Vite, PHP, Python, Node.js, MySQL, PostgreSQL, Docker and Tailwind CSS.",
+        ],
+        [
+          "How can I order website development?",
+          "Contact @magister1o on Telegram or LinkedIn, describe your task and receive an estimate for timeline and cost.",
+        ],
+        [
+          "Do you provide SEO optimization?",
+          "Yes: technical SEO, JSON-LD, meta tags, robots.txt, sitemap.xml, canonical URLs, LCP and indexability optimization.",
+        ],
+      ]
+  ).map(([name, text]) => ({
+    "@type": "Question",
+    name,
+    acceptedAnswer: { "@type": "Answer", text },
+  })),
+});
+
 const homeSchemas = (lang) => [
   personSchema,
+  localBusinessSchema,
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -182,6 +279,7 @@ const homeSchemas = (lang) => [
       },
     ],
   },
+  faqSchema(lang),
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -365,44 +463,28 @@ for (const key of Object.keys(legalSeo)) {
   }
 }
 
+const sitemapEntries = Object.values(seoData.pages)
+  .filter((page) => page.indexable)
+  .flatMap((page) =>
+    ["ru", "en"].map((lang) => ({
+      loc: absoluteUrl(localizedPath(lang, page.basePath)),
+      priority: page.basePath === "/" ? (lang === "ru" ? "1.0" : "0.9") : "0.5",
+      changefreq: page.basePath === "/" ? "weekly" : "monthly",
+    })),
+  );
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${SITE_URL}/</loc>
+${sitemapEntries
+  .map(
+    (entry) => `  <url>
+    <loc>${entry.loc}</loc>
     <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/en/</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/terms</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/en/terms</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/copyright</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/en/copyright</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>
+  </url>`,
+  )
+  .join("\n")}
 </urlset>
 `;
 writeFileSync(join(DIST_DIR, "sitemap.xml"), sitemap);

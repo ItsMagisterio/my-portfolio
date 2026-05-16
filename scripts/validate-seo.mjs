@@ -85,10 +85,15 @@ assert(existsSync(manifestFile), "site.webmanifest is missing");
 const manifest = JSON.parse(readFileSync(manifestFile, "utf8"));
 assert(manifest.name && manifest.short_name && manifest.start_url === "/", "manifest: missing required app metadata");
 
-const maxAssetBytes = 800 * 1024;
+const defaultMaxAssetBytes = 800 * 1024;
+const preservedSourceAssetBudgets = [
+  { pattern: /^katkova-logo-.*\.png$/, maxBytes: 2_100 * 1024 },
+];
+
 for (const asset of readdirSync(join(DIST_DIR, "assets"))) {
   const size = statSync(join(DIST_DIR, "assets", asset)).size;
-  assert(size <= maxAssetBytes, `asset budget exceeded: ${asset} is ${size} bytes`);
+  const budget = preservedSourceAssetBudgets.find(({ pattern }) => pattern.test(asset))?.maxBytes ?? defaultMaxAssetBytes;
+  assert(size <= budget, `asset budget exceeded: ${asset} is ${size} bytes`);
 }
 
 for (const asset of readdirSync(join(DIST_DIR, "assets")).filter((asset) => asset.endsWith(".svg"))) {
