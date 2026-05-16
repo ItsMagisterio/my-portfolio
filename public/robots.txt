@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /api/
+Disallow:
 
 Sitemap: https://magister1o-portfolio.vercel.app/sitemap.xml
