@@ -23,7 +23,7 @@ const HeroSection = () => {
                 boxShadow: "0 24px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08)",
               }}
             >
-              <img src={avatar} alt="Богдан Вавренчук — Full-Stack разработчик, Брест" width="208" height="208" className="w-full h-full object-cover" fetchPriority="high" decoding="sync" />
+              <img src={avatar} alt="Богдан Вавренчук" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -43,11 +43,10 @@ const HeroSection = () => {
               {t.hero.openTo}
             </div>
 
-            {/* Name — H1 содержит полный SEO-текст, суффикс скрыт визуально */}
+            {/* Name */}
             <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-gray-50 tracking-tight leading-none mb-3">
                 {t.hero.name}
-                <span className="sr-only">{t.hero.h1Suffix}</span>
               </h1>
             </div>
 

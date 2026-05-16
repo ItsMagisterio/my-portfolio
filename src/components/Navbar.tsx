@@ -4,7 +4,6 @@ import logoDark from "@/assets/logo-dark.jpg";
 import { cn } from "@/lib/utils";
 import { useLang } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { localizedPath } from "@/lib/seo";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +26,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav aria-label={t.nav.mainLabel} className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
       <div
         className={cn(
           "glass-pill rounded-full transition-all duration-500 w-full max-w-xl",
@@ -36,8 +35,8 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between px-5 h-14">
           {/* Logo */}
-          <a href={localizedPath(lang, "/")} className="flex items-center gap-2.5 shrink-0">
-            <img src={logoDark} alt="magister1o logo" width="28" height="28" className="w-7 h-7 rounded-xl" />
+          <a href="/" className="flex items-center gap-2.5 shrink-0">
+            <img src={logoDark} alt="Logo" className="w-7 h-7 rounded-xl" />
             <span className="font-bold text-base text-gray-800 dark:text-gray-200 tracking-tight">magister1o</span>
           </a>
 
@@ -58,7 +57,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-2">
             <button
               data-testid="button-lang-toggle"
-              aria-label={t.nav.languageToggle}
               onClick={() => setLang(lang === "ru" ? "en" : "ru")}
               className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/60 dark:hover:bg-white/10"
               style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -68,7 +66,6 @@ const Navbar = () => {
 
             <button
               data-testid="button-theme-toggle"
-              aria-label={t.nav.themeToggle}
               onClick={toggleTheme}
               className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 hover:bg-white/60 dark:hover:bg-white/10"
               style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -79,8 +76,6 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            aria-label={t.nav.menuToggle}
-            aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-full hover:bg-white/60 dark:hover:bg-white/10 transition-colors text-gray-700 dark:text-gray-300"
           >
@@ -105,7 +100,6 @@ const Navbar = () => {
             ))}
             <div className="flex items-center gap-2 mt-1">
               <button
-                aria-label={t.nav.languageToggle}
                 onClick={() => setLang(lang === "ru" ? "en" : "ru")}
                 className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 text-gray-600 dark:text-gray-400"
                 style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}
@@ -113,7 +107,6 @@ const Navbar = () => {
                 {lang.toUpperCase()}
               </button>
               <button
-                aria-label={t.nav.themeToggle}
                 onClick={toggleTheme}
                 className="p-2 rounded-full text-gray-600 dark:text-gray-400 transition-all duration-200"
                 style={{ background: "var(--pill-bg)", border: "1px solid var(--pill-border)" }}

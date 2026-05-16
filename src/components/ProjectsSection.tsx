@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu, type LucideIcon } from "lucide-react";
+import { ExternalLink, Github, Gamepad2, Zap, Home, ChevronDown, ChevronUp, HelpCircle, Cpu } from "lucide-react";
 import shina24Logo from "@/assets/shina24-logo.png";
 import kondeyLogo from "@/assets/kondey-logo.png";
 import flashtankiLogo from "@/assets/flashtanki-logo.png";
@@ -43,9 +43,7 @@ const projectGithubs: (string | undefined)[] = [
   "https://github.com/ItsMagisterio",
 ];
 
-type ProjectStatus = Partial<Record<"completed" | "frozen" | "inDevelopment" | "prize" | "earlyDev" | "topSecret" | "thinking", boolean | string>>;
-
-const projectStatuses: ProjectStatus[] = [
+const projectStatuses = [
   { completed: true },
   { frozen: true },
   { frozen: true },
@@ -55,7 +53,7 @@ const projectStatuses: ProjectStatus[] = [
   { inDevelopment: true },
 ];
 
-const getStatusKey = (status: ProjectStatus): keyof ProjectStatus | null => {
+const getStatusKey = (status: Record<string, any>): string | null => {
   if (status.frozen) return "frozen";
   if (status.inDevelopment) return "inDevelopment";
   if (status.completed) return "completed";
@@ -93,8 +91,8 @@ const ProjectCard = ({
   description: string;
   tags: string[];
   image: string;
-  icon: LucideIcon;
-  status: ProjectStatus;
+  icon: any;
+  status: Record<string, any>;
   pinned?: boolean;
   github?: string;
   link?: string;
@@ -129,10 +127,6 @@ const ProjectCard = ({
           <img
             src={image}
             alt={title}
-            width="160"
-            height="112"
-            loading="lazy"
-            decoding="async"
             className="h-28 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
@@ -232,10 +226,6 @@ const PairedProjectCard = () => {
               <img
                 src={pairedImages[project.title]}
                 alt={project.title}
-                width="144"
-                height="96"
-                loading="lazy"
-                decoding="async"
                 className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-500"
               />
               <div

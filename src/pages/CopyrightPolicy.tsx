@@ -1,9 +1,6 @@
-import Seo from "@/components/Seo";
-import { defaultAlternates, localizedPath } from "@/lib/seo";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-import seoData from "@/lib/seo-data.json";
 
 const link = (href: string, label: string) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 underline underline-offset-2 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
@@ -18,7 +15,6 @@ const CopyrightPolicy = () => {
   const { lang } = useLang();
 
   const isRu = lang === "ru";
-  const pageSeo = seoData.pages.copyright[lang];
 
   const intro = isRu ? (
     <>
@@ -133,15 +129,6 @@ const CopyrightPolicy = () => {
     : "By continuing to use the website, the user confirms full agreement with these terms.";
 
   return (
-    <>
-      <Seo
-        lang={lang}
-        title={pageSeo.title}
-        description={pageSeo.description}
-        canonicalPath={localizedPath(lang, "/copyright")}
-        robots="noindex, follow"
-        alternates={defaultAlternates("/copyright")}
-      />
     <div className="min-h-screen px-4 py-24 relative overflow-hidden bg-background">
       <div className="aurora-orb w-[500px] h-[500px] bg-gray-200 dark:bg-zinc-800 top-[-10%] left-[-10%] opacity-40 dark:opacity-10" />
       <div className="container max-w-3xl mx-auto relative z-10">
@@ -177,7 +164,6 @@ const CopyrightPolicy = () => {
         </div>
       </div>
     </div>
-    </>
   );
 };
 

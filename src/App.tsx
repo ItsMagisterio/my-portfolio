@@ -12,38 +12,32 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Preloader from "./components/Preloader";
 import ScrollToTop from "./components/ScrollToTop";
 import CustomCursor from "./components/CustomCursor";
-import { useContentProtection } from "./hooks/use-content-protection";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  useContentProtection();
-  return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <CustomCursor />
-            <Preloader />
-            <ScrollToTop />
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/en" element={<Index />} />
-                <Route path="/terms" element={<TermsOfUse />} />
-                <Route path="/en/terms" element={<TermsOfUse />} />
-                <Route path="/copyright" element={<CopyrightPolicy />} />
-                <Route path="/en/copyright" element={<CopyrightPolicy />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </QueryClientProvider>
-      </LanguageProvider>
-    </ThemeProvider>
-  );
-};
+const App = () => (
+  <ThemeProvider>
+  <LanguageProvider>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <CustomCursor />
+      <Preloader />
+      <ScrollToTop />
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/copyright" element={<CopyrightPolicy />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+  </LanguageProvider>
+  </ThemeProvider>
+);
 
 export default App;

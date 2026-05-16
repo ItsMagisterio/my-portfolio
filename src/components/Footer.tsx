@@ -2,10 +2,9 @@ import { Github, Send } from "lucide-react";
 import { SiTwitch, SiSteam, SiDiscord, SiLinkedin } from "react-icons/si";
 import logoDark from "@/assets/logo-dark.jpg";
 import { useLang } from "@/contexts/LanguageContext";
-import { localizedPath } from "@/lib/seo";
 
 const Footer = () => {
-  const { lang, t } = useLang();
+  const { t } = useLang();
 
   return (
     <footer className="py-12 px-4">
@@ -14,7 +13,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo and name */}
             <div className="flex items-center gap-3">
-              <img src={logoDark} alt="magister1o logo" width="40" height="40" className="w-10 h-10 rounded-2xl" />
+              <img src={logoDark} alt="magister1o logo" className="w-10 h-10 rounded-2xl" />
               <div>
                 <p className="font-bold text-gray-900 dark:text-gray-100">magister1o</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{t.footer.role}</p>
@@ -58,14 +57,14 @@ const Footer = () => {
             </p>
             <div className="mt-3 flex items-center justify-center gap-4">
               <a
-                href={localizedPath(lang, "/terms")}
+                href="/terms"
                 className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
               >
                 {t.footer.terms}
               </a>
               <span className="text-gray-300 dark:text-gray-600 text-xs">·</span>
               <a
-                href={localizedPath(lang, "/copyright")}
+                href="/copyright"
                 className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
               >
                 {t.footer.copyright}

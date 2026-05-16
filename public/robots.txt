@@ -1,6 +1,3 @@
-# robots.txt — magister1o-portfolio.vercel.app
-# Богдан Вавренчук (magister1o) — Full-Stack разработчик, Брест, Беларусь
-
 User-agent: *
 Allow: /
 Disallow: /api/

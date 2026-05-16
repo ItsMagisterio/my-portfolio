@@ -8,15 +8,10 @@ const translations = {
       about: "Обо мне",
       skills: "Навыки",
       projects: "Проекты",
-      mainLabel: "Основная навигация",
-      languageToggle: "Переключить язык",
-      themeToggle: "Переключить тему",
-      menuToggle: "Открыть или закрыть меню",
     },
     hero: {
       openTo: "Открыт к новым проектам",
       name: "Богдан",
-      h1Suffix: " Вавренчук — Full-Stack разработчик сайтов в Бресте",
       subtitle: "Middle Full-Stack Developer",
       tagline: "Проектирую и реализую сложные продукты с нуля.\nКоммерческие результаты — не обещания, а факты.",
       cta: "Обсудить проект",
@@ -158,15 +153,10 @@ const translations = {
       about: "About",
       skills: "Skills",
       projects: "Projects",
-      mainLabel: "Primary navigation",
-      languageToggle: "Switch language",
-      themeToggle: "Toggle theme",
-      menuToggle: "Open or close menu",
     },
     hero: {
       openTo: "Open to new projects",
       name: "Bogdan",
-      h1Suffix: " Vavrenchuk — Full-Stack Web Developer in Brest",
       subtitle: "Middle Full-Stack Developer",
       tagline: "I design and build complex products from scratch.\nCommercial results — not promises, but facts.",
       cta: "Discuss a project",
@@ -314,40 +304,15 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
-const getInitialLang = (): Lang => {
-  if (typeof window === "undefined") return "ru";
-
-  const pathLang = window.location.pathname.split("/").filter(Boolean)[0];
-  if (pathLang === "en" || pathLang === "ru") return pathLang;
-
-  const saved = window.localStorage.getItem("lang");
-  return saved === "en" || saved === "ru" ? saved : "ru";
-};
-
-const getLocalizedPath = (nextLang: Lang) => {
-  const { pathname, search, hash } = window.location;
-  const pathWithoutLang = pathname.replace(/^\/(ru|en)(?=\/|$)/, "") || "/";
-  const normalizedPath = pathWithoutLang === "/" ? "/" : pathWithoutLang.replace(/\/$/, "");
-  const nextPath = nextLang === "en"
-    ? normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`
-    : normalizedPath;
-
-  return `${nextPath}${search}${hash}`;
-};
-
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>(getInitialLang);
+  const [lang, setLang] = useState<Lang>(() => {
+    const saved = localStorage.getItem("lang");
+    return saved === "en" || saved === "ru" ? saved : "ru";
+  });
 
   const handleSetLang = (l: Lang) => {
-    window.localStorage.setItem("lang", l);
+    localStorage.setItem("lang", l);
     setLang(l);
-
-    const nextUrl = getLocalizedPath(l);
-    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-
-    if (nextUrl !== currentUrl) {
-      window.location.assign(nextUrl);
-    }
   };
 
   return (

@@ -414,34 +414,3 @@ body.preloader-open { overflow: hidden; }
 /* Selection */
 ::selection { background: rgba(0, 0, 0, 0.12); color: #111111; }
 .dark ::selection { background: rgba(255, 255, 255, 0.15); color: #f0f0f0; }
-
-/* Content protection */
-* {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-img {
-  -webkit-user-drag: none;
-  user-drag: none;
-  pointer-events: none;
-}
-
-a, button, input, textarea, [contenteditable] {
-  -webkit-user-select: auto;
-  -moz-user-select: auto;
-  user-select: auto;
-}
-
-/* Block printing entirely */
-@media print {
-  * {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  html, body {
-    display: none !important;
-  }
-}
